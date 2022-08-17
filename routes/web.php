@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-//    return view('welcome');
-    return 'ÇOK YAKINDA';
+    return view('index');
+//    return 'ÇOK YAKINDA';
+});
+
+Route::get('/signin', function () {
+    return view('user.signin');
+//    return 'ÇOK YAKINDA';
 });
