@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="turhanahmet.com">
     <meta name="description" content="Ahmet Turhan-Kişisel Web Sitesi">
-
+    <meta name="google-site-verification" content="DLQpMny3QLfvBccrfFPy_F81QG69GbgIqg6DKKMk5Hc" />
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{asset('/')}}assets/images/favicon.ico">
 

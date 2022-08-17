@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Register;
+use App\Http\Controllers\Login;
+use App\Http\Controllers\Home;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,12 +15,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-//    return 'ÇOK YAKINDA';
-});
+Route::group(['namespace' => 'App\Http\Controllers'], function()
+{
+    /**
+     * Home Routes
+     */
+    Route::get('/', [Home::class,'show'])->name('home.index');
 
-Route::get('/signin', function () {
-    return view('user.signin');
-//    return 'ÇOK YAKINDA';
+    Route::group(['middleware' => ['guest']], function() {
+        /**
+         * Register Routes
+         */
+        Route::get('/register', [Register::class,'show'])->name('register.show');
+        Route::post('/register', [Register::class,'register'])->name('register.perform');
+
+        /**
+         * Login Routes
+         */
+        Route::get('/signin', [Login::class,'show'])->name('login.show');
+        Route::post('/signin', [Login::class,'show'])->name('login.perform');
+
+    });
+
+    Route::group(['middleware' => ['auth']], function() {
+        /**
+         * Logout Routes
+         */
+        Route::get('/logout', 'Logout@perform')->name('logout.perform');
+    });
 });
