@@ -9,16 +9,24 @@ Inner intro START -->
                     <div class="p-4 p-sm-5 bg-primary bg-opacity-10 rounded">
                         <h2>Hesabınıza Giriş Yapın</h2>
                         <!-- Form START -->
-                        <form class="mt-4">
+                        <form class="mt-4" action="{{route('login.perform')}}" method="POST">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                             <!-- Email -->
                             <div class="mb-3">
                                 <label class="form-label" for="exampleInputEmail1">E-Posta</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="E-posta Adresinizi Giriniz">
+                                <input type="email" class="form-control" id="exampleInputEmail1"
+                                       placeholder="E-posta Adresinizi Giriniz" value="{{ old('username') }}" name="username" required autofocus>
+                                @if ($errors->has('username'))
+                                    <span class="text-danger text-left">{{ $errors->first('username') }}</span>
+                                @endif
                             </div>
                             <!-- Password -->
                             <div class="mb-3">
                                 <label class="form-label" for="exampleInputPassword1">Şifre</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="*********">
+                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="*********" name="password" value="{{ old('password') }}" required>
+                                @if ($errors->has('password'))
+                                    <span class="text-danger text-left">{{ $errors->first('password') }}</span>
+                                @endif
                             </div>
                             <!-- Button -->
                             <div class="row align-items-center">
@@ -28,6 +36,9 @@ Inner intro START -->
                                 <div class="col-sm-8 text-sm-end">
                                     <span>Hesabınız Yok mu? <a href="{{route('register.show')}}"><u>Kayıt Ol</u></a></span>
                                 </div>
+                                @if ($errors->first('message1'))
+                                    <span class="text-danger text-left">{{$errors->first('message1')}}</span>
+                                @endif
                             </div>
                         </form>
                         <!-- Form END -->

@@ -266,6 +266,7 @@ Header START -->
             <div class="modeswitch ms-4" id="darkModeSwitch">
                 <div class="switch"></div>
             </div>
+             <a class="nav-link text-primary" href="{{asset('/')}}signin">Giriş Yap</a>
         </div>
     </nav>
     <!-- Logo Nav END -->

@@ -33,7 +33,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          * Login Routes
          */
         Route::get('/signin', [Login::class,'show'])->name('login.show');
-        Route::post('/signin', [Login::class,'show'])->name('login.perform');
+        Route::post('/signin', [Login::class,'login'])->name('login.perform');
 
     });
 
@@ -42,5 +42,17 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          * Logout Routes
          */
         Route::get('/logout', 'Logout@perform')->name('logout.perform');
+
+
+
+
+
+
+        /**
+         * Admin Panel Action
+         */
+        Route::get('/dashboard', function() {
+            return view('admin.dashboard');
+        });
     });
 });
