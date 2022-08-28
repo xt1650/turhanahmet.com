@@ -3,6 +3,7 @@
 @include('admin.layout.head')
 
 <body>
+
 <!-- ======================= Header START -->
 @include('admin.layout.header')
 <!-- ======================= Header END -->

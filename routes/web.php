@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\About;
+use App\Http\Controllers\Post;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Register;
 use App\Http\Controllers\Login;
@@ -20,7 +22,14 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     /**
      * Home Routes
      */
-    Route::get('/', [Home::class,'show'])->name('home.index');
+    Route::get('/home', [Home::class,'show'])->name('home.index');
+    Route::get('/', function (){return view('offline');});
+
+    /**
+     * Hakkımda
+     */
+    Route::get('about-me',[Home::class,'ShowAboutMe'])->name('about-me');
+    Route::get('contact-me',[Home::class,'ShowContactMe'])->name('contact-me');
 
     Route::group(['middleware' => ['guest']], function() {
         /**
@@ -53,6 +62,14 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          */
         Route::get('/dashboard', function() {
             return view('admin.dashboard');
-        });
+        })->name('dashboard');
+
+        Route::get('/create_post', function() {
+            return view('admin.post.create_post');
+        })->name('admin.post.create');
+
+        Route::post('/create_post', [Post::class,'PostCreate'])->name('admin.post.controller');
+        Route::get('/create_aboutme', [About::class,'show'])->name('admin.aboutme.controller');
+        Route::post('/create_aboutme', [About::class,'SaveAboutMe'])->name('admin.aboutme.controller');
     });
 });

@@ -29,7 +29,7 @@
                             <!-- dropdown submenu -->
                             <li> <a class="dropdown-item" href="dashboard-post-list.html">Post List</a> </li>
                             <li> <a class="dropdown-item" href="dashboard-post-categories.html">Post Categories</a> </li>
-                            <li> <a class="dropdown-item" href="dashboard-post-create.html">Create a Post</a> </li>
+                            <li> <a class="dropdown-item" href="{{route('admin.post.create')}}">Gönderi Kaydet</a> </li>
                             <li> <a class="dropdown-item" href="dashboard-post-edit.html">Edit Post</a> </li>
                         </ul>
                     </li>
@@ -182,9 +182,9 @@
                             <hr>
                         </li>
                         <!-- Links -->
-                        <li><a class="dropdown-item" href="#"><i class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="bi bi-gear fa-fw me-2"></i>Account Settings</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="bi bi-info-circle fa-fw me-2"></i>Help</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-person fa-fw me-2"></i>Profil</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-gear fa-fw me-2"></i>Hesap Ayarları</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-info-circle fa-fw me-2"></i>Yardım</a></li>
                         <li><a class="dropdown-item" href="{{route('logout.perform')}}"><i class="bi bi-power fa-fw me-2"></i>Oturumu Kapat</a></li>
                         <li class="dropdown-divider mb-3"></li>
                         <li>

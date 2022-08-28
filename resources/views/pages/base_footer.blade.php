@@ -37,5 +37,6 @@ Footer START -->
         <!-- About and Newsletter END -->
     </div>
 </footer>
-<!-- =======================
-Footer END -->
+<!-- ======================= Footer END -->
+<!-- Back to top -->
+<div class="back-top"><i class="bi bi-arrow-up-short"></i></div>

@@ -3,7 +3,7 @@
 @include('pages.header')
 <body>
 @include('pages.header_side')
-
+<!-- **************** MAIN CONTENT START **************** -->
 <main>
     @yield('content')
 </main>

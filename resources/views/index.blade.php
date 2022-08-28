@@ -1,3 +1,7 @@
+@php
+    $cardImage = '';
+
+@endphp
 @extends('layout.master')
 @section('css')@endsection
 @section('title')
@@ -18,16 +22,21 @@
                              data-dots="false"
                              data-items="1">
                             <!-- Slide 1 -->
-                            <div class="card card-overlay-bottom card-bg-scale h-400 h-sm-500 h-md-600 rounded-0" style="background-image:url({{asset('/')}}assets/images/blog/16by9/04.jpg); background-position: center left; background-size: cover;">
+                            @foreach($slider as $key=>$value)
+                                @if(!is_null($value['file_info']))
+                                        {{$cardImage = (json_decode($value['file_info']))->filename}}
+                                @endif
+{{--                            <div class="card card-overlay-bottom card-bg-scale h-400 h-sm-500 h-md-600 rounded-0" style="background-image:url({{asset('/')}}assets/images/blog/16by9/04.jpg); background-position: center left; background-size: cover;">--}}
+                            <div class="card card-overlay-bottom card-bg-scale h-400 h-sm-500 h-md-600 rounded-0" style="background-image:url({{asset('/').$cardImage}}); background-position: center left; background-size: cover;">
                                 <!-- Card Image overlay -->
                                 <div class="card-img-overlay d-flex align-items-center p-3 p-sm-5">
                                     <div class="w-100 mt-auto">
                                         <div class="col-md-10 col-lg-7">
                                             <!-- Card category -->
-                                            <a href="#" class="badge text-bg-primary mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Business</a>
+                                            <a href="#" class="badge text-bg-primary mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>{{$value['category_id']}}</a>
                                             <!-- Card title -->
-                                            <h2 class="text-white display-5"><a href="post-single-4.html" class="btn-link text-reset fw-normal">Never underestimate the influence of social media</a></h2>
-                                            <p class="text-white">For who thoroughly her boy estimating conviction. Removed demands expense account in outward tedious do.</p>
+                                            <h2 class="text-white display-5"><a href="" class="btn-link text-reset fw-normal">{{$value['name']}}</a></h2>
+                                            <p class="text-white">{{$value['short_description']}}</p>
                                             <!-- Card info -->
                                             <ul class="nav nav-divider text-white-force align-items-center d-none d-sm-inline-block">
                                                 <li class="nav-item">
@@ -36,47 +45,18 @@
                                                             <div class="avatar avatar-sm">
                                                                 <img class="avatar-img rounded-circle" src="{{asset('/')}}assets/images/avatar/01.jpg" alt="avatar">
                                                             </div>
-                                                            <span class="ms-3">by <a href="#" class="stretched-link text-reset btn-link">Carolyn</a></span>
+                                                            <span class="ms-3"> <a href="#" class="stretched-link text-reset btn-link">{{$value['username']}}</a></span>
                                                         </div>
                                                     </div>
                                                 </li>
-                                                <li class="nav-item">Jan 26, 2022</li>
-                                                <li class="nav-item">3 min read</li>
+                                                <li class="nav-item">{{ \Carbon\Carbon::create($value['date'])->translatedFormat('d F Y')}}</li>
+{{--                                                <li class="nav-item">3 min read</li>--}}
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- Slide 2 -->
-                            <div class="card card-overlay-bottom card-bg-scale h-400 h-sm-500 h-md-600 rounded-0" style="background-image:url({{asset('/')}}assets/images/blog/16by9/03.jpg); background-position: center left; background-size: cover;">
-                                <!-- Card Image overlay -->
-                                <div class="card-img-overlay d-flex align-items-center p-3 p-sm-5">
-                                    <div class="w-100 mt-auto">
-                                        <div class="col-md-10 col-lg-7">
-                                            <!-- Card category -->
-                                            <a href="#" class="badge text-bg-danger mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Lifestyle</a>
-                                            <!-- Card title -->
-                                            <h2 class="text-white display-5"><a href="post-single-4.html" class="btn-link text-reset fw-normal">This is why this year will be the year of startups</a></h2>
-                                            <p class="text-white">Particular way thoroughly unaffected projection favorable Mrs can be projecting own. </p>
-                                            <!-- Card info -->
-                                            <ul class="nav nav-divider text-white-force align-items-center d-none d-sm-inline-block">
-                                                <li class="nav-item">
-                                                    <div class="nav-link">
-                                                        <div class="d-flex align-items-center text-white position-relative">
-                                                            <div class="avatar avatar-sm">
-                                                                <img class="avatar-img rounded-circle" src="{{asset('/')}}assets/images/avatar/04.jpg" alt="avatar">
-                                                            </div>
-                                                            <span class="ms-3">by <a href="#" class="stretched-link text-reset btn-link">Louis</a></span>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="nav-item">Nov 15, 2022</li>
-                                                <li class="nav-item">5 min read</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -761,4 +741,10 @@
     <!-- =======================
     Tab post END -->
 
+@endsection
+@section('scripts')
+<script>
+    var home = document.getElementById('home');
+    home.classList.add('active');
+</script>
 @endsection

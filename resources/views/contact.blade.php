@@ -1,0 +1,114 @@
+@extends('layout.master')
+@section('content')
+        <!-- ======================= Inner intro START -->
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9 mx-auto text-center">
+                        <h1 class="display-4">İletişim</h1>
+                        <!-- breadcrumb -->
+                        <nav class="d-flex justify-content-center" aria-label="breadcrumb">
+                            <ol class="breadcrumb breadcrumb-dots mb-0">
+                                <li class="breadcrumb-item"><a href="{{route('home.index')}}"><i class="bi bi-house me-1"></i> Anasayfa</a></li>
+                                <li class="breadcrumb-item active">İletişim</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- =======================
+        Inner intro END -->
+
+        <!-- =======================
+        Contact info START -->
+        <section class="pt-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-9 mx-auto">
+                        <iframe class="w-100 h-300 grayscale" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.9663095343008!2d-74.00425878428698!3d40.74076684379132!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259bf5c1654f3%3A0xc80f9cfce5383d5d!2sGoogle!5e0!3m2!1sen!2sin!4v1586000412513!5m2!1sen!2sin" height="500" style="border:0;" aria-hidden="false" tabindex="0"></iframe>
+
+
+                        <div class="row mt-5">
+                            <div class="col-sm-6 mb-5 mb-sm-0">
+                                <h3>Advertise / Sponsorships</h3>
+                                <p>Contact us directly related Advertisement</p>
+                                <address>2492 Centennial NW, Acworth, GA, 30102</address>
+                                <p>Call: <a href="#" class="text-reset"><u>(678) 324-1251 (Toll-free)</u></a></p>
+                                <p>Email: <a href="#" class="text-reset"><u>advertise@example.com</u></a></p>
+                                <p>Support time: Monday to Saturday
+                                    <br>
+                                    9:30 am to 6:00 pm
+                                </p>
+                            </div>
+                            <div class="col-sm-6">
+                                <h3>Contact Information </h3>
+                                <p>Get in touch with us to see how we can help you with your query</p>
+                                <address>750 Sing Sing Rd, Horseheads, NY, 14845</address>
+                                <p>Call: <a href="#" class="text-reset"><u>469-537-2410 (Toll-free)</u></a></p>
+                                <p>Email: <a href="#" class="text-reset"><u>contact@example.com</u></a></p>
+                                <p>Support time: Monday to Saturday
+                                    <br>
+                                    9:00 am to 5:30 pm
+                                </p>
+                            </div>
+                        </div>
+
+                        <hr class="my-5">
+
+                        <div class="row">
+                            <div class="col-12">
+                                <h2>Benimle İletişime Geç</h2>
+                                <p>Lütfen aşağıdaki formu doldurun, sizinle çok yakında iletişime geçeceğim</p>
+                                <!-- Form START -->
+                                <form class="contact-form" id="contact-form" name="contactform" method="POST">
+                                    <!-- Main form -->
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <!-- name -->
+                                            <div class="mb-3">
+                                                <input required id="con-name" name="name" type="text" class="form-control" placeholder="Adınız">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <!-- email -->
+                                            <div class="mb-3">
+                                                <input required id="con-email" name="email" type="email" class="form-control" placeholder="E-posta">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <!-- Subject -->
+                                            <div class="mb-3">
+                                                <input required id="con-subject" name="subject" type="text" class="form-control" placeholder="Konu">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <!-- Message -->
+                                            <div class="mb-3">
+                                                <textarea required id="con-message" name="message" cols="40" rows="6" class="form-control" placeholder="Konu İçeriği"></textarea>
+                                            </div>
+                                        </div>
+                                        <!-- submit button -->
+                                        <div class="col-md-12 text-start"><button class="btn btn-primary w-100" type="submit">Mesajı Gönder</button></div>
+                                    </div>
+                                </form>
+                                <!-- Form END -->
+                            </div>
+                        </div>
+                    </div>  <!-- Col END -->
+                </div>
+            </div>
+        </section>
+        <!-- =======================
+        Contact info END -->
+
+@endsection
+
+@section('scripts')
+<script>
+    var contact = document.getElementById('contact-me');
+    contact.classList.add('active');
+</script>
+@endsection
+
+
