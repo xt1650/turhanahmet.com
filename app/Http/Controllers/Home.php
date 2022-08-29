@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AboutModel;
 use Illuminate\Http\Request;
 use App\Models\HomeModel;
 class Home extends Controller
@@ -16,11 +17,13 @@ class Home extends Controller
 //            $twoSliderData[$key]['file_info']=json_decode($value['file_info']);
 //        }
 
-        return view('index',['slider'=> $twoSliderData]);
+        return view('index',['slider'=> $twoSliderData,'highlights'=>$homeModel->HighlightsPost()]);
     }
 
     public function ShowAboutMe(){
-        return view('about');
+
+        $aboutModel = new AboutModel();
+        return view('about',['aboutme'=>$aboutModel->getAboutMe()]);
     }
 
     public function ShowContactMe(){

@@ -31,6 +31,14 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::get('about-me',[Home::class,'ShowAboutMe'])->name('about-me');
     Route::get('contact-me',[Home::class,'ShowContactMe'])->name('contact-me');
 
+    /**
+     * Post Viewer
+     */
+    Route::get('view-post/{post_name}/{post_id}',[Post::class,'ShowPost'])->name('show.post');
+
+
+
+
     Route::group(['middleware' => ['guest']], function() {
         /**
          * Register Routes
@@ -69,6 +77,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         })->name('admin.post.create');
 
         Route::post('/create_post', [Post::class,'PostCreate'])->name('admin.post.controller');
+
+        /**
+         * Create About Page and Post
+         */
         Route::get('/create_aboutme', [About::class,'show'])->name('admin.aboutme.controller');
         Route::post('/create_aboutme', [About::class,'SaveAboutMe'])->name('admin.aboutme.controller');
     });

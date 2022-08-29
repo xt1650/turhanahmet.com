@@ -26,4 +26,21 @@ class HomeModel extends Model
             ->get()
             ->toArray();
     }
+
+    /**
+     * Highlights -Öne Çıkan Gönderi Listesi-Max 5
+     * @return mixed
+     */
+    public function HighlightsPost(){
+        //Geçici seçim
+        //Daha sonrasında admin panelinden seçilmelidir
+        return $this->select('post.*','u.name as username','pf.file_info')
+            ->leftJoin('users as u', 'u.id','=','post.user_id')
+            ->leftJoin('post_file as pf', 'pf.post_id','=','post.id')
+            ->orderBy('date', 'desc')
+            ->offset(2)
+            ->limit(5)
+            ->get()
+            ->toArray();
+    }
 }

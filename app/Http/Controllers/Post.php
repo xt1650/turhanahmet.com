@@ -7,6 +7,7 @@ use App\Models\PostFileModel;
 use Illuminate\Http\Request;
 use App\Models\PostModel as PostModel;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 
 
 class Post extends Controller
@@ -39,5 +40,18 @@ class Post extends Controller
         $this->PostFileModel->saveFileInfo($newId,$rs);
 
         return redirect()->back()->with('message', 'Gönderi Kaydetme İşlemi Başarılı');
+    }
+
+
+    public function showPost(Request $request,$post_name,$post_id){
+//        dump($request);
+//        dump($post_name);
+//        dump($post_id);
+
+        $post_id = Crypt::decrypt($post_id);
+        $post = $this->postModel->getPostFromID($post_id);
+
+        return view('post_viewer',['post'=>$post]);
+
     }
 }

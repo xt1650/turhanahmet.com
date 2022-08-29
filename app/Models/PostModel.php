@@ -40,4 +40,16 @@ class PostModel extends Model
          return $this->getKey();
     }
 
+
+    public function getPostFromID($post_id){
+        return $this->select('post.*','u.name as username','pf.file_info')
+            ->leftJoin('users as u', 'u.id','=','post.user_id')
+            ->leftJoin('post_file as pf', 'pf.post_id','=','post.id')
+            ->where('post.id','=',$post_id)
+//            ->orderBy('date', 'desc')
+//            ->take(2)
+            ->first()
+            ->toArray();
+    }
+
 }

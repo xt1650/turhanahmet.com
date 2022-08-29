@@ -20,7 +20,16 @@ class AboutModel extends Model
 
         $this->save();
         return $this->getKey();
+    }
 
+
+    public function getAboutMe(){
+        return $this->select('about.*')
+            ->where('status','=',1)
+            ->orderBy('date', 'desc')
+            ->take(1)
+            ->first()
+            ->toArray();
     }
 
 }
