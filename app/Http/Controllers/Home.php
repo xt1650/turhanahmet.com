@@ -12,6 +12,7 @@ class Home extends Controller
     public function show(){
         $homeModel = new HomeModel();
         $twoSliderData = $homeModel->SliderPost();
+        
 
 //        foreach($twoSliderData as $key=>$value){
 //            $twoSliderData[$key]['file_info']=json_decode($value['file_info']);

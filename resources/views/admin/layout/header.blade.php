@@ -182,7 +182,7 @@
                             <hr>
                         </li>
                         <!-- Links -->
-                        <li><a class="dropdown-item" href="#"><i class="bi bi-person fa-fw me-2"></i>Profil</a></li>
+                        <li><a class="dropdown-item" href="{{route('admin.profile.controller')}}"><i class="bi bi-person fa-fw me-2"></i>Profil</a></li>
                         <li><a class="dropdown-item" href="#"><i class="bi bi-gear fa-fw me-2"></i>Hesap Ayarları</a></li>
                         <li><a class="dropdown-item" href="#"><i class="bi bi-info-circle fa-fw me-2"></i>Yardım</a></li>
                         <li><a class="dropdown-item" href="{{route('logout.perform')}}"><i class="bi bi-power fa-fw me-2"></i>Oturumu Kapat</a></li>
