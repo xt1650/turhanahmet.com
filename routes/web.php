@@ -1,11 +1,14 @@
 <?php
 
 use App\Http\Controllers\About;
+use App\Http\Controllers\Admin;
 use App\Http\Controllers\Post;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Register;
 use App\Http\Controllers\Login;
 use App\Http\Controllers\Home;
+use App\Http\Auth\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,14 +19,20 @@ use App\Http\Controllers\Home;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/redirect', [LoginController::class,'redirectToProvider']);
+Route::get('/callback', [LoginController::class,'handleProviderCallback']);
 
 Route::group(['namespace' => 'App\Http\Controllers'], function()
 {
-    /**
-     * Home Routes
-     */
+    Route::get('/artisan',function(){
+
+        Artisan::call('migrate');
+    });
+
+
     Route::get('/home', [Home::class,'show'])->name('home.index');
-    Route::get('/', function (){return view('offline');});
+    Route::get('/', function (){
+        return view('offline');});
 
     /**
      * Hakkımda
@@ -83,5 +92,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          */
         Route::get('/create_aboutme', [About::class,'show'])->name('admin.aboutme.controller');
         Route::post('/create_aboutme', [About::class,'SaveAboutMe'])->name('admin.aboutme.controller');
+
+
+        Route::get('/edit_profile',[Admin::class,'GetProfile'])->name('admin.profile.controller');
     });
 });
