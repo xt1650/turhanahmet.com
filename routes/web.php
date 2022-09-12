@@ -25,12 +25,17 @@ Route::get('/callback', [LoginController::class,'handleProviderCallback']);
 Route::group(['namespace' => 'App\Http\Controllers'], function()
 {
     Route::get('/artisan',function(){
+//        Artisan::call('migrate');
+        Artisan::call('vendor:publish',['--tag'=>'laravel-assets','--ansi'=>true,'--force'=>true]);
+        Artisan::call('package:discover',['--ansi'=>true]);
+        Artisan::call('vendor:publish',['--provider'=>"Intervention\Image\ImageServiceProviderLaravelRecent"]);
 
-        Artisan::call('migrate');
+
     });
 
 
     Route::get('/home', [Home::class,'show'])->name('home.index');
+
     Route::get('/', function (){
         return view('offline');});
 
@@ -63,12 +68,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
     });
 
-    Route::group(['middleware' => ['auth']], function() {
+        Route::group(['middleware' => ['auth']], function() {
         /**
          * Logout Routes
          */
         Route::get('/logout', 'Logout@perform')->name('logout.perform');
-
 
 
 
@@ -95,5 +99,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
 
         Route::get('/edit_profile',[Admin::class,'GetProfile'])->name('admin.profile.controller');
+
+
+        /**
+         * Session needed
+         * Ajax List
+         */
+        Route::post('/save_profile_changes',[Admin::class,'SaveProfileChanges'])->name('ajax.profile');
     });
 });

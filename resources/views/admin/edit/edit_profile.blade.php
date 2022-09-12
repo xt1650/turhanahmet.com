@@ -12,7 +12,7 @@
                 <div class="col-12">
                     <div class="card mb-4 position-relative z-index-9">
                         <!-- Cover image -->
-                        <div class="py-5 h-200 rounded" style="background-image:url(assets/images/blog/16by9/big/07.jpg); background-position: center bottom; background-size: cover; background-repeat: no-repeat;">
+                        <div class="py-5 h-200 rounded" style="background-image:url({{asset('/')}}assets/images/blog/16by9/big/07.jpg); background-position: center bottom; background-size: cover; background-repeat: no-repeat;">
                         </div>
                         <div class="card-body pt-3 pb-0">
                             <div class="row d-flex justify-content-between">
@@ -73,6 +73,8 @@
                             <h5 class="card-header-title mb-0">Profile</h5>
                         </div>
                         <div class="card-body">
+                            <form id="saveChangesProfileFirst" method="post" enctype="multipart/form-data" >
+                                <input hidden value="{{csrf_token()}}">
                             <!-- Full name -->
                             <div class="mb-3">
                                 <label class="form-label">Ad-Soyad</label>
@@ -97,11 +99,13 @@
                                     <div class="position-relative me-3">
                                         <!-- Avatar edit -->
                                         <div class="position-absolute top-0 end-0  z-index-9">
-                                            <a class="btn btn-sm btn-light btn-round mb-0 mt-n1 me-n1" href="#"> <i class="bi bi-pencil"></i> </a>
+
+                                            <button type="button" class="btn btn-sm btn-light btn-round mb-0 mt-n1 me-n1" id="add_avatar"> <i class="bi bi-pencil"></i> </button>
                                         </div>
                                         <!-- Avatar preview -->
                                         <div class="avatar avatar-xl">
-                                            <img class="avatar-img rounded-circle border border-white border-3 shadow" src="assets/images/avatar/03.jpg" alt="">
+                                            <input id="profile_file_input" class="file-upload" type="file" accept="image/*" hidden/>
+                                            <img id="bordered_profile" class="avatar-img rounded-circle border border-white border-3 shadow" src="{{asset('/')}}assets/images/avatar/03.jpg" alt="">
                                         </div>
                                     </div>
                                     <!-- Avatar remove button -->
@@ -135,8 +139,9 @@
                             <!-- Save button -->
                             <div class="d-flex justify-content-end mt-4">
                                 <a href="#" class="btn text-secondary border-0 me-2">İptal</a>
-                                <a href="#" class="btn btn-primary">Değişiklikleri Kayder</a>
+                                <button type="button" id="base_profile" value="1" class="btn btn-primary">Değişiklikleri Kaydet</button>
                             </div>
+                            </form>
                         </div>
                     </div>
                     <!-- Profile END -->
@@ -360,4 +365,49 @@
         </div>
     </section>
     <!-- ======================= Main contain END -->
+@endsection
+@section('script')
+{{--    <script src="{{asset('/')}}js/axios.min.js"></script>--}}
+    <script src="{{asset('/')}}js/app.js"></script>
+    <script src="{{asset('/')}}js/axios/profile.js"></script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", () => {
+        let add_avatar= document.getElementById('add_avatar');
+        let profile_file_input= document.getElementById('profile_file_input');
+        let circle = document.getElementById('bordered_profile');
+        let changeSaveButtonFirst = document.getElementById('base_profile');
+        /**
+         * Image Preview in img elements
+         */
+        profile_file_input.addEventListener('change',function (e) {
+            var img = URL.createObjectURL(e.target.files[0]);
+            circle.setAttribute('src', img);
+        });
+
+        add_avatar.addEventListener('click',function (e) {
+            document.getElementById('profile_file_input').click();
+        });
+
+
+        changeSaveButtonFirst.addEventListener('click',function (event) {
+            // Promise.any([BasicProfile('/save_profile_changes',{a:'b'})])
+            //     .then(function (results) {
+            //         console.log("results")
+            //         console.log(results)
+            //     })  .catch(function (error) {
+            //     console.log(error);
+            // });
+            var forms = document.getElementById('saveChangesProfileFirst');
+
+            BasicProfile('/save_profile_changes',new URLSearchParams(new FormData(forms)).toString()).then(function (response) {
+                console.log(response)
+            })
+        })
+
+
+
+
+    });
+</script>
 @endsection

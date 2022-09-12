@@ -1,5 +1,4 @@
 @php
-//dump($post);
     $cardImage = '';
         if(!is_null($post['file_info'])){
             $cardImage = (json_decode($post['file_info']))->filename;

@@ -18,7 +18,12 @@ class FileTools{
      */
     public function SavePostFile($file){
 
-
+//        if (!is_dir(storage_path("public/post-images"))) {
+//            dump(storage_path("public/post-images"));
+//            mkdir(storage_path("public/post-images"), 0775, true);
+//
+//        }
+//        dump("devam");
         $extension =$file->extension();
         $size = $file->getSize();
 
@@ -27,12 +32,14 @@ class FileTools{
 
 
         try{
-            $this->image->make($file)->fit(1280 , 720)->save($fileName);
+            $this->image->make($file)->fit(1280 , 720)->save(public_path($fileName));
+
 //            $this->image->make($file)->save($fileName);
             return array('extension'=>$extension,'size'=>$size,'filename'=>$fileName);
 
 
         }catch (Exception $exception){
+            dump($exception);
             echo $exception->getMessage();
             return false;
         }

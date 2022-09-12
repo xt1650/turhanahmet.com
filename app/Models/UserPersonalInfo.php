@@ -14,10 +14,10 @@ class UserPersonalInfo extends Model
 
     public function GetUserPersonalInfo($user_id)
     {
-        return $this->select('user_personal_info.*')
+         $rs = $this->select('user_personal_info.*')
             ->where('user_id','=',$user_id)
-            ->first()
-            ->toArray();
+            ->first();
+          return $rs ? $rs->toArray() : null;
     }
 
 }

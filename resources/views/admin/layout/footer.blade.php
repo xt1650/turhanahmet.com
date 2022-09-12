@@ -47,6 +47,7 @@ JS libraries, plugins and custom scripts -->
 <!-- Vendors -->
 <script src="{{asset('/')}}assets/vendor/apexcharts/js/apexcharts.min.js"></script>
 <script src="{{asset('/')}}assets/vendor/overlay-scrollbar/js/OverlayScrollbars.min.js"></script>
+<script src="{{asset('/')}}assets/js/jquery-3.6.1.min.js"></script>
 @yield('script')
 <!-- Template Functions -->
 <script src="{{asset('/')}}assets/js/functions.js"></script>

@@ -14,10 +14,11 @@ class ProfileSetting extends Model
 
     public function GetPersonalSetting($user_id)
     {
-        return $this->select('*')
+        $rs = $this->select('*')
             ->where('user_id','=',$user_id)
-            ->first()
-            ->toArray();
+            ->first();
+
+        return $rs ? $rs->toArray() : null;
     }
 
 }

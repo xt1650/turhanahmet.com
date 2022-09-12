@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ProfileSetting;
 use App\Models\User;
 use App\Models\UserPersonalInfo;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,5 +26,12 @@ class Admin extends Controller
         return view('admin.edit.edit_profile',['user_info'=>$users,
             'settings'=>$settings,
             'personal_info'=>$personalInfo]);
+    }
+
+
+    public function SaveProfileChanges(Request $request){
+        if ($request->ajax()) {
+            return response()->json(['test'=>123456]);
+        }
     }
 }
