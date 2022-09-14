@@ -20,35 +20,34 @@
                 <ul class="navbar-nav navbar-nav-scroll mx-auto">
 
                     <!-- Nav item 1 Demos -->
-                    <li class="nav-item"><a class="nav-link" href="dashboard.html"><i class="bi bi-house-door me-1"></i>Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{route('dashboard')}}"><i class="bi bi-house-door me-1"></i>Yönetim</a></li>
 
                     <!-- Nav item 2 Post -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="postMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-pencil me-1"></i>Post</a>
                         <ul class="dropdown-menu" aria-labelledby="postMenu">
                             <!-- dropdown submenu -->
-                            <li> <a class="dropdown-item" href="dashboard-post-list.html">Post List</a> </li>
-                            <li> <a class="dropdown-item" href="dashboard-post-categories.html">Post Categories</a> </li>
+                            <li> <a class="dropdown-item" href="dashboard-post-list.html">Gönderilerim</a> </li>
                             <li> <a class="dropdown-item" href="{{route('admin.post.create')}}">Gönderi Kaydet</a> </li>
-                            <li> <a class="dropdown-item" href="dashboard-post-edit.html">Edit Post</a> </li>
+                            <li> <a class="dropdown-item" href="dashboard-post-categories.html">Kategori Listesi</a> </li>
                         </ul>
                     </li>
 
                     <!-- Nav item 3 Pages -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="pagesMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-folder me-1"></i>Pages</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="pagesMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-folder me-1"></i>Sayfalar</a>
                         <ul class="dropdown-menu" aria-labelledby="pagesMenu">
-                            <li> <a class="dropdown-item" href="dashboard-author-list.html">Author List</a></li>
-                            <li> <a class="dropdown-item" href="dashboard-author-single.html">Author Single</a></li>
-                            <li> <a class="dropdown-item" href="dashboard-edit-profile.html">Edit Profile</a></li>
-                            <li> <a class="dropdown-item" href="dashboard-reviews.html">Reviews</a></li>
-                            <li> <a class="dropdown-item" href="dashboard-settings.html">Settings</a></li>
+                            <li> <a class="dropdown-item" href="dashboard-author-list.html">Hakkımda</a></li>
+                            <li> <a class="dropdown-item" href="dashboard-author-single.html">İletişim</a></li>
+{{--                            <li> <a class="dropdown-item" href="dashboard-edit-profile.html">Edit Profile</a></li>--}}
+{{--                            <li> <a class="dropdown-item" href="dashboard-reviews.html">Reviews</a></li>--}}
+{{--                            <li> <a class="dropdown-item" href="dashboard-settings.html">Settings</a></li>--}}
                             <li class="dropdown-divider"></li>
-                            <li> <a class="dropdown-item" href="https://support.webestica.com/" target="_blank"> <i class="text-warning fa-fw bi bi-life-preserver me-2"></i>Support</a></li>
-                            <li> <a class="dropdown-item" href="docs/index.html" target="_blank"> <i class="text-danger fa-fw bi bi-card-text me-2"></i>Documentation</a></li>
+                            <li> <a class="dropdown-item" href="" target="_blank"> <i class="text-warning fa-fw bi bi-life-preserver me-2"></i>Gelen E-posta Listesi</a></li>
+                            <li> <a class="dropdown-item" href="docs/index.html" target="_blank"> <i class="text-danger fa-fw bi bi-card-text me-2"></i>Döküman</a></li>
                             <li class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="rtl/index.html" target="_blank"> <i class="text-info fa-fw bi bi-toggle-off me-2"></i>RTL demo</a></li>
-                            <li><a class="dropdown-item" href="https://themes.getbootstrap.com/store/webestica/" target="_blank"> <i class="text-success fa-fw bi bi-cloud-download-fill me-2"></i>Buy blogzine!</a> </li>
+{{--                            <li><a class="dropdown-item" href="rtl/index.html" target="_blank"> <i class="text-info fa-fw bi bi-toggle-off me-2"></i>RTL demo</a></li>--}}
+{{--                            <li><a class="dropdown-item" href="https://themes.getbootstrap.com/store/webestica/" target="_blank"> <i class="text-success fa-fw bi bi-cloud-download-fill me-2"></i>Buy blogzine!</a> </li>--}}
                         </ul>
                     </li>
                 </ul>
