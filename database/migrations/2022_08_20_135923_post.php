@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('tur_id')->nullable()->default(null);
             $table->integer('category_id')->nullable()->default(null);
             $table->text('short_description')->nullable()->default(null);
-            $table->text('post_body')->nullable()->default(null);
+            $table->longText('post_body')->nullable()->default(null);
             $table->string('tags')->nullable()->default(null);
             $table->timestamp('date')->useCurrent();
             $table->tinyInteger('status')->default(1);
