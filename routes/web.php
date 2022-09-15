@@ -81,14 +81,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         /**
          * Admin Panel Action
          */
-        Route::get('/dashboard', function() {
-            return view('admin.dashboard');
-        })->name('dashboard');
+        Route::get('/dashboard', function() {return view('admin.dashboard');})->name('dashboard');
 
-        Route::get('/create_post', function() {
-            return view('admin.post.create_post');
-        })->name('admin.post.create');
-
+        Route::get('/create_post', function() {return view('admin.post.create_post');})->name('admin.post.create');
         Route::post('/create_post', [Post::class,'PostCreate'])->name('admin.post.controller');
 
         /**
@@ -99,12 +94,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
 
         Route::get('/edit_profile',[Admin::class,'GetProfile'])->name('admin.profile.controller');
-
-
-        /**
-         * Session needed
-         * Ajax List
-         */
         Route::post('/save_profile_changes',[Admin::class,'SaveProfileChanges'])->name('ajax.profile');
+
+        Route::get('/post_list',[Post::class,'GetPostList'])->name('admin.post.list');
     });
 });

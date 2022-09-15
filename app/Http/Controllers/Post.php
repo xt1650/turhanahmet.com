@@ -54,4 +54,9 @@ class Post extends Controller
         return view('post_viewer',['post'=>$post]);
 
     }
+
+
+    public function GetPostList(Request $request){
+        return view('admin.post.post_list');
+    }
 }

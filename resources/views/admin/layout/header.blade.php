@@ -27,7 +27,7 @@
                         <a class="nav-link dropdown-toggle" href="#" id="postMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-pencil me-1"></i>Post</a>
                         <ul class="dropdown-menu" aria-labelledby="postMenu">
                             <!-- dropdown submenu -->
-                            <li> <a class="dropdown-item" href="dashboard-post-list.html">Gönderilerim</a> </li>
+                            <li> <a class="dropdown-item" href="{{route('admin.post.list')}}">Gönderilerim</a> </li>
                             <li> <a class="dropdown-item" href="{{route('admin.post.create')}}">Gönderi Kaydet</a> </li>
                             <li> <a class="dropdown-item" href="dashboard-post-categories.html">Kategori Listesi</a> </li>
                         </ul>
