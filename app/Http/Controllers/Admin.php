@@ -30,6 +30,7 @@ class Admin extends Controller
 
 
     public function SaveProfileChanges(Request $request){
+
         if ($request->ajax()) {
             return response()->json(['test'=>123456]);
         }

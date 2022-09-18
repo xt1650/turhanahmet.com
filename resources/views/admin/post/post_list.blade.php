@@ -1,4 +1,10 @@
+@php
+$total=0;
+    @endphp
 @extends('admin.master')
+@section('css')
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+    @endsection
 @section('main')
     <!-- ======================= Post list START -->
     <section class="py-4">
@@ -7,7 +13,7 @@
                 <div class="col-12">
                     <!-- Title -->
                     <div class="d-sm-flex justify-content-sm-between align-items-center">
-                        <h1 class="mb-2 mb-sm-0 h2">Gönderi Listesi <span class="badge bg-primary bg-opacity-10 text-primary">110</span></h1>
+                        <h1 class="mb-2 mb-sm-0 h2">Gönderi Listesi <span class="badge bg-primary bg-opacity-10 text-primary">{{$total}}</span></h1>
                         <a href="{{route('admin.post.create')}}" class="btn btn-sm btn-primary mb-0"><i class="fas fa-plus me-2"></i>Gönderi Ekle</a>
                     </div>
                 </div>
@@ -88,7 +94,7 @@
                                 <!-- Search -->
                                 <div class="col-md-8">
                                     <form class="rounded position-relative">
-                                        <input class="form-control pe-5 bg-transparent" type="search" placeholder="Search" aria-label="Search">
+                                            <input class="form-control pe-5 bg-transparent" type="search" value="{{csrf_token()}}" placeholder="Arama Yap" aria-label="Search">
                                         <button class="btn bg-transparent border-0 px-2 py-0 position-absolute top-50 end-0 translate-middle-y" type="submit"><i class="fas fa-search fs-6 "></i></button>
                                     </form>
                                 </div>
@@ -98,10 +104,10 @@
                                     <!-- Short by filter -->
                                     <form>
                                         <select class="form-select z-index-9 bg-transparent" aria-label=".form-select-sm">
-                                            <option value="">Sort by</option>
-                                            <option>Free</option>
-                                            <option>Newest</option>
-                                            <option>Oldest</option>
+                                            <option value="">Sıralama Ölçütü</option>
+                                            <option selected value="1">En Yeni</option>
+                                            <option value="2">En Eski</option>
+                                            <option value="3">Popülerlik</option>
                                         </select>
                                     </form>
                                 </div>
@@ -110,16 +116,17 @@
 
                             <!-- Post list table START -->
                             <div class="table-responsive border-0">
-                                <table class="table align-middle p-4 mb-0 table-hover table-shrink">
+                                <table class="table align-middle p-4 mb-0 table-hover table-shrink" id="postTable">
                                     <!-- Table head -->
                                     <thead class="table-dark">
                                     <tr>
-                                        <th scope="col" class="border-0 rounded-start">Post Name</th>
-                                        <th scope="col" class="border-0">Author Name</th>
-                                        <th scope="col" class="border-0">Published Date</th>
-                                        <th scope="col" class="border-0">Category</th>
-                                        <th scope="col" class="border-0">Status</th>
-                                        <th scope="col" class="border-0 rounded-end">Action</th>
+                                        <th scope="col" class="border-0 rounded-start">No</th>
+                                        <th scope="col" class="border-0">Gönderi</th>
+                                        <th scope="col" class="border-0">Yazar</th>
+                                        <th scope="col" class="border-0">Tarih</th>
+                                        <th scope="col" class="border-0">Kategori</th>
+                                        <th scope="col" class="border-0">Durum</th>
+                                        <th scope="col" class="border-0 rounded-end">İşlem</th>
                                     </tr>
                                     </thead>
 
@@ -416,4 +423,39 @@
             </div>
         </div>
     </section>
+@endsection
+@section('script')
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#postTable').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax:
+                    {
+                        url: '{!! route('datatables.post.list') !!}',
+                        type: 'POST',
+                        data:{
+                            _token : '{{csrf_token()}}',
+                            test:123
+                        }
+                        // data: function (d) {
+                        //     d.myKey = 'myValue';
+                        //     // d.custom = $('#myInput').val();
+                        //     // etc
+                        // },
+                    },
+
+
+                // columns: [
+                //     { data: 'id', name: 'id' },
+                //     { data: 'name', name: 'name' },
+                //     { data: 'email', name: 'email' },
+                //     { data: 'created_at', name: 'created_at' },
+                //     { data: 'updated_at', name: 'updated_at' }
+                // ]
+            });
+
+        });
+    </script>
 @endsection

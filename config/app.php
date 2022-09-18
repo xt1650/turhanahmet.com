@@ -182,6 +182,7 @@ return [
          * Package Service Providers...
          * */
         Laravel\Socialite\SocialiteServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
 
     ],
 
@@ -200,6 +201,7 @@ return [
         // ...
         'Image' => Intervention\Image\Facades\Image::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Datatables' => Yajra\Datatables\Facades\Datatables::class,
     ])->toArray(),
 
 ];

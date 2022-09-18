@@ -3,6 +3,7 @@
 use App\Http\Controllers\About;
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\Post;
+use App\Http\Controllers\PostDatatablesController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Register;
@@ -26,9 +27,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 {
     Route::get('/artisan',function(){
 //        Artisan::call('migrate');
-        Artisan::call('vendor:publish',['--tag'=>'laravel-assets','--ansi'=>true,'--force'=>true]);
-        Artisan::call('package:discover',['--ansi'=>true]);
-        Artisan::call('vendor:publish',['--provider'=>"Intervention\Image\ImageServiceProviderLaravelRecent"]);
+//        Artisan::call('vendor:publish',['--tag'=>'laravel-assets','--ansi'=>true,'--force'=>true]);
+        Artisan::call('vendor:publish',['--tag'=>'datatables','--ansi'=>true,'--force'=>true]);
+//        Artisan::call('package:discover',['--ansi'=>true]);
+//        Artisan::call('vendor:publish',['--provider'=>"Intervention\Image\ImageServiceProviderLaravelRecent"]);
 
 
     });
@@ -97,5 +99,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::post('/save_profile_changes',[Admin::class,'SaveProfileChanges'])->name('ajax.profile');
 
         Route::get('/post_list',[Post::class,'GetPostList'])->name('admin.post.list');
+        Route::post('/datatables/post_list',[PostDatatablesController::class,'getDatatablesPost'])->name('datatables.post.list');
     });
 });

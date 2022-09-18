@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="turhanahmet.com">
     <meta name="description" content="Ahmet Turhan-Kişisel Web Sayfası">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{asset('/')}}assets/images/favicon.ico">
 
