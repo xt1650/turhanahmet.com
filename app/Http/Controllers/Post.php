@@ -57,6 +57,8 @@ class Post extends Controller
 
 
     public function GetPostList(Request $request){
-        return view('admin.post.post_list');
+
+        $total = $this->postModel->getLivePostCount();
+        return view('admin.post.post_list',['total'=>$total]);
     }
 }

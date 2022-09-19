@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\PostModel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -16,7 +17,28 @@ class PostDatatablesController extends Controller
     public function getDatatablesPost(Request $request)
     {
 //        dump($request);
-        $users = User::select(['id','name','email','created_at','updated_at']);
-        return Datatables::of($users)->make(true);
+        $post = PostModel::leftJoin('users','users.id','=','post.user_id')->
+        select('post.*','users.name as username')
+            ->orderBy('post.date','desc');
+//        $users = User::select(['id','name','email','created_at','updated_at']);
+        return Datatables::of($post)
+            ->editColumn('status', function ($status){
+                if ($status->status == 1){
+                    $css = 'text-success';
+                    $text= 'Aktif';
+                }else{
+                    $css = 'text-danger';
+                    $text= 'Pasif';
+                }
+                return '<span class="badge bg-success bg-opacity-10 '.$css.' mb-2">'.$text.'</span>';
+            })
+            ->escapeColumns([])
+            ->addIndexColumn()
+            ->addColumn('action', function ($user) {
+                return '<div class="d-flex gap-2">'.
+                     '<a href="#" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="bi bi-trash"></i></a>'.
+                    '<a href="'.route('admin.post.update',['id'=>$user->id]).'" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="bi bi-pencil-square"></i></a>'.
+                    '</div>';
+        })->make(true);
     }
 }

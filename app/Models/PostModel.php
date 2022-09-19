@@ -52,4 +52,9 @@ class PostModel extends Model
             ->toArray();
     }
 
+    public function getLivePostCount(){
+        return $this
+            ->where('status','=',1)->count();
+    }
+
 }

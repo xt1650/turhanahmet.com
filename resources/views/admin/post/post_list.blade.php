@@ -1,5 +1,5 @@
 @php
-$total=0;
+//$total=0;
     @endphp
 @extends('admin.master')
 @section('css')
@@ -94,7 +94,7 @@ $total=0;
                                 <!-- Search -->
                                 <div class="col-md-8">
                                     <form class="rounded position-relative">
-                                            <input class="form-control pe-5 bg-transparent" type="search" value="{{csrf_token()}}" placeholder="Arama Yap" aria-label="Search">
+                                            <input class="form-control pe-5 bg-transparent" type="search"  placeholder="Arama Yap" aria-label="Search">
                                         <button class="btn bg-transparent border-0 px-2 py-0 position-absolute top-50 end-0 translate-middle-y" type="submit"><i class="fas fa-search fs-6 "></i></button>
                                     </form>
                                 </div>
@@ -130,292 +130,63 @@ $total=0;
                                     </tr>
                                     </thead>
 
-                                    <!-- Table body START -->
-                                    <tbody class="border-top-0">
-                                    <!-- Table item -->
-                                    <tr>
-                                        <!-- Table data -->
-                                        <td>
-                                            <h6 class="course-title mt-2 mt-md-0 mb-0"><a href="#">12 worst types of business accounts you follow on Twitter</a></h6>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <h6 class="mb-0"><a href="#">Lori Stevens</a></h6>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>Jan 22, 2022</td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <a href="#" class="badge text-bg-warning mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Technology</a>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <span class="badge bg-success bg-opacity-10 text-success mb-2">Live</span>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <div class="d-flex gap-2">
-                                                <a href="#" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="bi bi-trash"></i></a>
-                                                <a href="dashboard-post-edit.html" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="bi bi-pencil-square"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <!-- Table item -->
-                                    <tr>
-                                        <!-- Table data -->
-                                        <td>
-                                            <h6 class="course-title mt-2 mt-md-0 mb-0"><a href="#">Dirty little secrets about the business industry</a></h6>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <h6 class="mb-0"><a href="#">Dennis Barrett</a></h6>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>Jan 19, 2022</td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <a href="#" class="badge text-bg-info mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Marketing</a>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <span class="badge bg-warning bg-opacity-15 text-warning mb-2">Draft</span>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <div class="d-flex gap-2">
-                                                <a href="#" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="bi bi-trash"></i></a>
-                                                <a href="dashboard-post-edit.html" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="bi bi-pencil-square"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <!-- Table item -->
-                                    <tr>
-                                        <!-- Table data -->
-                                        <td>
-                                            <h6 class="course-title mt-2 mt-md-0 mb-0"><a href="#">7 common mistakes everyone makes while traveling</a></h6>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <h6 class="mb-0"><a href="#">Billy Vasquez</a></h6>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>Nov 11, 2022</td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <a href="#" class="badge text-bg-danger mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Photography</a>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <span class="badge bg-success bg-opacity-10 text-success mb-2">Live</span>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <div class="d-flex gap-2">
-                                                <a href="#" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="bi bi-trash"></i></a>
-                                                <a href="dashboard-post-edit.html" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="bi bi-pencil-square"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <!-- Table item -->
-                                    <tr>
-                                        <!-- Table data -->
-                                        <td>
-                                            <h6 class="course-title mt-2 mt-md-0 mb-0"><a href="#">5 investment doubts you should clarify</a></h6>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <h6 class="mb-0"><a href="#">Lori Stevens</a></h6>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>Jan 22, 2022</td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <a href="#" class="badge text-bg-success mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Gadgets</a>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <span class="badge bg-success bg-opacity-10 text-success mb-2">Live</span>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <div class="d-flex gap-2">
-                                                <a href="#" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="bi bi-trash"></i></a>
-                                                <a href="dashboard-post-edit.html" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="bi bi-pencil-square"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <!-- Table item -->
-                                    <tr>
-                                        <!-- Table data -->
-                                        <td>
-                                            <h6 class="course-title mt-2 mt-md-0 mb-0"><a href="#">Bad habits that people in the industry need to quit</a></h6>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <h6 class="mb-0"><a href="#">Larry Lawson</a></h6>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>Oct 14, 2022</td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <a href="#" class="badge text-bg-primary mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Sports</a>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <span class="badge bg-danger bg-opacity-10 text-danger mb-2">Removed</span>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <div class="d-flex gap-2">
-                                                <a href="#" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="bi bi-trash"></i></a>
-                                                <a href="dashboard-post-edit.html" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="bi bi-pencil-square"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <!-- Table item -->
-                                    <tr>
-                                        <!-- Table data -->
-                                        <td>
-                                            <h6 class="course-title mt-2 mt-md-0 mb-0"><a href="#">Around the web: 20 fabulous infographics about business</a></h6>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <h6 class="mb-0"><a href="#">Billy Vasquez</a></h6>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>Feb 23, 2022</td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <a href="#" class="badge text-bg-danger mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Travel</a>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <span class="badge bg-success bg-opacity-10 text-success mb-2">Live</span>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <div class="d-flex gap-2">
-                                                <a href="#" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="bi bi-trash"></i></a>
-                                                <a href="dashboard-post-edit.html" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="bi bi-pencil-square"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <!-- Table item -->
-                                    <tr>
-                                        <!-- Table data -->
-                                        <td>
-                                            <h6 class="course-title mt-2 mt-md-0 mb-0"><a href="#">Best Pinterest boards for learning about business</a></h6>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <h6 class="mb-0"><a href="#">Amanda Reed</a></h6>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>Dec 16, 2022</td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <a href="#" class="badge text-bg-success mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Business</a>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <span class="badge bg-success bg-opacity-10 text-success mb-2">Live</span>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <div class="d-flex gap-2">
-                                                <a href="#" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="bi bi-trash"></i></a>
-                                                <a href="dashboard-post-edit.html" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="bi bi-pencil-square"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <!-- Table item -->
-                                    <tr>
-                                        <!-- Table data -->
-                                        <td>
-                                            <h6 class="course-title mt-2 mt-md-0 mb-0"><a href="#">Five unbelievable facts about money.</a></h6>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <h6 class="mb-0"><a href="#">Carolyn Ortiz</a></h6>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>Nov 10, 2022</td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <a href="#" class="badge text-bg-primary mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Sports</a>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <span class="badge bg-danger bg-opacity-10 text-danger mb-2">Removed</span>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <div class="d-flex gap-2">
-                                                <a href="#" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="bi bi-trash"></i></a>
-                                                <a href="dashboard-post-edit.html" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="bi bi-pencil-square"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <!-- Table item -->
-                                    <tr>
-                                        <!-- Table data -->
-                                        <td>
-                                            <h6 class="course-title mt-2 mt-md-0 mb-0"><a href="#">Ten questions you should answer truthfully.</a></h6>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <h6 class="mb-0"><a href="#">Samuel Bishop</a></h6>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>Mar 06, 2022</td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <a href="#" class="badge text-bg-info mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Marketing</a>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <span class="badge bg-warning bg-opacity-15 text-warning mb-2">Draft</span>
-                                        </td>
-                                        <!-- Table data -->
-                                        <td>
-                                            <div class="d-flex gap-2">
-                                                <a href="#" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="bi bi-trash"></i></a>
-                                                <a href="dashboard-post-edit.html" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="bi bi-pencil-square"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                    <!-- Table body END -->
+{{--                                    <!-- Table body START -->--}}
+{{--                                    <tbody class="border-top-0">--}}
+{{--                                    <!-- Table item -->--}}
+{{--                                    <tr>--}}
+{{--                                        <!-- Table data -->--}}
+{{--                                        <td>--}}
+{{--                                            <h6 class="course-title mt-2 mt-md-0 mb-0"><a href="#">12 worst types of business accounts you follow on Twitter</a></h6>--}}
+{{--                                        </td>--}}
+{{--                                        <!-- Table data -->--}}
+{{--                                        <td>--}}
+{{--                                            <h6 class="mb-0"><a href="#">Lori Stevens</a></h6>--}}
+{{--                                        </td>--}}
+{{--                                        <!-- Table data -->--}}
+{{--                                        <td>Jan 22, 2022</td>--}}
+{{--                                        <!-- Table data -->--}}
+{{--                                        <td>--}}
+{{--                                            <a href="#" class="badge text-bg-warning mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Technology</a>--}}
+{{--                                        </td>--}}
+{{--                                        <!-- Table data -->--}}
+{{--                                        <td>--}}
+{{--                                            <span class="badge bg-success bg-opacity-10 text-success mb-2">Live</span>--}}
+{{--                                        </td>--}}
+{{--                                        <!-- Table data -->--}}
+{{--                                        <td>--}}
+{{--                                            <div class="d-flex gap-2">--}}
+{{--                                                <a href="#" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="bi bi-trash"></i></a>--}}
+{{--                                                <a href="dashboard-post-edit.html" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="bi bi-pencil-square"></i></a>--}}
+{{--                                            </div>--}}
+{{--                                        </td>--}}
+{{--                                    </tr>--}}
+{{--                                    </tbody>--}}
+{{--                                    <!-- Table body END -->--}}
                                 </table>
                             </div>
                             <!-- Post list table END -->
 
-                            <!-- Pagination START -->
-                            <div class="d-sm-flex justify-content-sm-between align-items-sm-center mt-4 mt-sm-3">
-                                <!-- Content -->
-                                <p class="mb-sm-0 text-center text-sm-start">Showing 1 to 8 of 20 entries</p>
-                                <!-- Pagination -->
-                                <nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation">
-                                    <ul class="pagination pagination-sm pagination-bordered mb-0">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Prev</a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item disabled"><a class="page-link" href="#">..</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">15</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">Next</a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                            <!-- Pagination END -->
+{{--                            <!-- Pagination START -->--}}
+{{--                            <div class="d-sm-flex justify-content-sm-between align-items-sm-center mt-4 mt-sm-3">--}}
+{{--                                <!-- Content -->--}}
+{{--                                <p class="mb-sm-0 text-center text-sm-start">Showing 1 to 8 of 20 entries</p>--}}
+{{--                                <!-- Pagination -->--}}
+{{--                                <nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation">--}}
+{{--                                    <ul class="pagination pagination-sm pagination-bordered mb-0">--}}
+{{--                                        <li class="page-item disabled">--}}
+{{--                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Prev</a>--}}
+{{--                                        </li>--}}
+{{--                                        <li class="page-item"><a class="page-link" href="#">1</a></li>--}}
+{{--                                        <li class="page-item active"><a class="page-link" href="#">2</a></li>--}}
+{{--                                        <li class="page-item disabled"><a class="page-link" href="#">..</a></li>--}}
+{{--                                        <li class="page-item"><a class="page-link" href="#">15</a></li>--}}
+{{--                                        <li class="page-item">--}}
+{{--                                            <a class="page-link" href="#">Next</a>--}}
+{{--                                        </li>--}}
+{{--                                    </ul>--}}
+{{--                                </nav>--}}
+{{--                            </div>--}}
+{{--                            <!-- Pagination END -->--}}
                         </div>
                     </div>
                     <!-- Post list table END -->
@@ -445,15 +216,15 @@ $total=0;
                         //     // etc
                         // },
                     },
-
-
-                // columns: [
-                //     { data: 'id', name: 'id' },
-                //     { data: 'name', name: 'name' },
-                //     { data: 'email', name: 'email' },
-                //     { data: 'created_at', name: 'created_at' },
-                //     { data: 'updated_at', name: 'updated_at' }
-                // ]
+                columns: [
+                    { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
+                    { data: 'name', name: 'post.name' },
+                    { data: 'username', name: 'users.username' },
+                    { data: 'date', name: 'date' },
+                    { data: 'category_id', name: 'category_id' },
+                    { data: 'status', name: 'status' },
+                    { data: 'action', name: 'action', orderable: false, searchable: false}
+                ]
             });
 
         });
