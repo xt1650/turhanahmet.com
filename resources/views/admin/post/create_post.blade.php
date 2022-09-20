@@ -1,3 +1,16 @@
+@php
+    /**
+     * Güncelleme isteği gelirse $durum = true
+     */
+    $durum = false;
+    $data = array();
+    if (isset($update)){
+        $durum = $update;
+        $data = $post;
+    }
+
+    dump($durum,$data);
+@endphp
 @extends('admin.master')
 @section('css')
 {{--    <link rel="stylesheet" type="text/css" href="{{asset('/')}}assets/vendor/quill/css/quill.snow.css">--}}
@@ -19,7 +32,7 @@ Main contain START -->
             <div class="row pb-4">
                 <div class="col-12">
                     <!-- Title -->
-                    <h1 class="mb-0 h2">Gönderi Oluştur</h1>
+                    <h1 class="mb-0 h2">Gönderi {{ $durum ? 'Güncelle' : 'Oluştur' }}</h1>
                 </div>
             </div>
             <div class="row">
@@ -37,7 +50,8 @@ Main contain START -->
                                         <!-- Post name -->
                                         <div class="mb-3">
                                             <label class="form-label">Gönderi Adı</label>
-                                            <input required id="con-name" name="name" type="text" class="form-control" placeholder="Gönderi Adı">
+                                            <input required id="con-name" name="name" type="text" class="form-control" placeholder="Gönderi Adı"
+                                            value="{{ $durum ? $data['name'] : '' }}">
 {{--                                            <small>Moving heaven divide two sea female great midst spirit</small>--}}
                                         </div>
                                     </div>
@@ -47,8 +61,10 @@ Main contain START -->
                                             <label class="form-label">Gönderi Türü</label>
                                             <div class="d-flex flex-wrap gap-3">
                                                 <!-- Post type item -->
+                                                {{--todo:İçerik kategorisi otomatik doldurulacak forEach--}}
+
                                                 <div class="flex-fill">
-                                                    <input type="radio" class="btn-check" name="post_type" value="1" id="option">
+                                                    <input type="radio" class="btn-check" name="post_type" value="1" {{ $durum ? ($data['tur_id']== 1 ? 'checked':  '') : ''}} id="option">
                                                     <label class="btn btn-outline-light w-100" for="option">
                                                         <i class="bi bi-chat-left-text fs-1"></i>
                                                         <span class="d-block"> Gönderi </span>
@@ -56,7 +72,7 @@ Main contain START -->
                                                 </div>
                                                 <!-- Post type item -->
                                                 <div class="flex-fill">
-                                                    <input type="radio" class="btn-check" name="post_type" value="2" id="option2">
+                                                    <input type="radio" class="btn-check" name="post_type" value="2" {{ $durum ? ($data['tur_id']== 2 ? 'checked':  '') : ''}} id="option2">
                                                     <label class="btn btn-outline-light w-100" for="option2">
                                                         <i class="bi bi-patch-question fs-1"></i>
                                                         <span class="d-block"> Soru </span>
@@ -64,7 +80,7 @@ Main contain START -->
                                                 </div>
                                                 <!-- Post type item -->
                                                 <div class="flex-fill">
-                                                    <input type="radio" class="btn-check" name="post_type" value="3" id="option3" checked>
+                                                    <input type="radio" class="btn-check" name="post_type" value="3" {{ $durum ? ($data['tur_id']== 3 ? 'checked':  '') : 'checked'}} id="option3" >
                                                     <label class="btn btn-outline-light w-100" for="option3">
                                                         <i class="bi bi-chat-right-dots fs-1"></i>
                                                         <span class="d-block"> Soru-Cevap </span>
@@ -72,7 +88,7 @@ Main contain START -->
                                                 </div>
                                                 <!-- Post type item -->
                                                 <div class="flex-fill">
-                                                    <input type="radio" class="btn-check" name="post_type" value="4" id="option4">
+                                                    <input type="radio" class="btn-check" name="post_type" value="4" {{ $durum ? ($data['tur_id']== 4 ? 'checked':  '') : ''}} id="option4">
                                                     <label class="btn btn-outline-light w-100" for="option4">
                                                         <i class="bi bi-ui-checks-grid fs-1"></i>
                                                         <span class="d-block"> Resim </span>
@@ -80,7 +96,7 @@ Main contain START -->
                                                 </div>
                                                 <!-- Post type item -->
                                                 <div class="flex-fill">
-                                                    <input type="radio" class="btn-check" name="post_type" value="5" id="option5">
+                                                    <input type="radio" class="btn-check" name="post_type" value="5" {{ $durum ? ($data['tur_id']== 5 ? 'checked':  '') : ''}} id="option5">
                                                     <label class="btn btn-outline-light w-100" for="option5">
                                                         <i class="bi bi-camera-reels fs-1"></i>
                                                         <span class="d-block"> Video </span>
@@ -88,7 +104,7 @@ Main contain START -->
                                                 </div>
                                                 <!-- Post type item -->
                                                 <div class="flex-fill">
-                                                    <input type="radio" class="btn-check" name="post_type" value="6" id="option6">
+                                                    <input type="radio" class="btn-check" name="post_type" value="6" {{ $durum ? ($data['tur_id']== 6 ? 'checked':  '') : ''}} id="option6">
                                                     <label class="btn btn-outline-light w-100" for="option6">
                                                         <i class="bi bi-chat-square fs-1"></i>
                                                         <span class="d-block"> Diğer </span>
@@ -104,7 +120,8 @@ Main contain START -->
                                     <div class="col-12">
                                         <div class="mb-3">
                                             <label class="form-label">Kısa Açıklama </label>
-                                            <textarea class="form-control" rows="3" name="short_description" placeholder="Açıklama Ekle"></textarea>
+                                            <textarea class="form-control" rows="3" name="short_description"  placeholder="Açıklama Ekle">{{ $durum ? $data['short_description'] : '' }}
+                                            </textarea>
                                         </div>
                                     </div>
 
@@ -134,21 +151,22 @@ Main contain START -->
                                         <!-- Tags -->
                                         <div class="mb-3">
                                             <label class="form-label">Etiketler</label>
-                                            <textarea class="form-control" rows="1" name="tags" placeholder="business, sports ..."></textarea>
+                                            <textarea class="form-control" rows="1" name="tags" placeholder="business, sports ...">{{ $durum ? $data['tags'] : '' }}</textarea>
                                             <small>En fazla 14 anahtar kelime. Anahtar kelimelerin tümü küçük harfli olmalı ve virgülle ayrılmalıdır. Örneğin. javascript, react, marketing.</small>
                                         </div>
                                     </div>
                                     <div class="col-lg-5">
                                         <!-- Message -->
+                                        {{-- todo: Kategori listeleme eklenecek db ye bağlı--}}
                                         <div class="mb-3">
                                             <label class="form-label">Kategori</label>
                                             <select class="form-select" aria-label="Default select example" name="category" id="category">
-                                                <option value="6" selected>Yaşam tarzı</option>
-                                                <option value="1">Teknoloji</option>
-                                                <option value="2">Yolculuk</option>
-                                                <option value="3">İşletme</option>
-                                                <option value="4">Spor</option>
-                                                <option value="5">Pazarlama</option>
+                                                <option value="6" {{ $durum ? ($data['category_id']== 6 ? 'selected':  '') : 'selected'}}>Yaşam tarzı</option>
+                                                <option value="1" {{ $durum ? ($data['category_id']== 1 ? 'selected':  '') : ''}}>Teknoloji</option>
+                                                <option value="2" {{ $durum ? ($data['category_id']== 2 ? 'selected':  '') : ''}}>Yolculuk</option>
+                                                <option value="3" {{ $durum ? ($data['category_id']== 3 ? 'selected':  '') : ''}}>İşletme</option>
+                                                <option value="4" {{ $durum ? ($data['category_id']== 4 ? 'selected':  '') : ''}}>Spor</option>
+                                                <option value="5" {{ $durum ? ($data['category_id']== 5 ? 'selected':  '') : ''}}>Pazarlama</option>
                                             </select>
                                         </div>
                                     </div>
@@ -162,7 +180,7 @@ Main contain START -->
                                     </div>
                                     <!-- Create post button -->
                                     <div class="col-md-12 text-start">
-                                        <button class="btn btn-primary w-100" type="submit">Gönderi Oluştur</button>
+                                        <button class="btn btn-primary w-100" type="submit">Gönderi {{ $durum ? 'Güncelle' : 'Oluştur' }}</button>
                                     </div>
                                     @if(session()->has('message'))
                                         <div class="alert alert-success">
@@ -184,6 +202,12 @@ Main contain START -->
 @endsection
 @section('script')
 {{--    <script src="{{asset('/')}}assets/vendor/quill/js/quill.min.js"></script>--}}
+    <script>
+        window.addEventListener('DOMContentLoaded',function (event) {
+            //todo:Editör content set araştırılacak
+            tinymce.activeEditor.setContent('{!! $durum ? $data['post_body'] : '' !!}', {format: 'raw'});
+        })
+    </script>
     @endsection
 {{--<!-- Editor toolbar -->--}}
 {{--<div class="bg-light border border-bottom-0 rounded-top py-3" id="quilltoolbar">--}}

@@ -86,7 +86,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/dashboard', function() {return view('admin.dashboard');})->name('dashboard');
 
         Route::get('/create_post', function() {return view('admin.post.create_post');})->name('admin.post.create');
-        Route::get('/update_post/{id}', function() {return view('admin.post.create_post');})->name('admin.post.update');
+        Route::get('/update_post/{id}',[Post::class,'PostUpdate'])->name('admin.post.update');
         Route::post('/create_post', [Post::class,'PostCreate'])->name('admin.post.controller');
 
         /**

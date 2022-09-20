@@ -19,7 +19,7 @@ class Post extends Controller
 
     public function __construct()
     {
-     $this->postModel =  new PostModel();;
+     $this->postModel =  new PostModel();
      $this->PostFileModel =  new PostFileModel();
      $this->toolsImage = new FileTools();
 
@@ -60,5 +60,18 @@ class Post extends Controller
 
         $total = $this->postModel->getLivePostCount();
         return view('admin.post.post_list',['total'=>$total]);
+    }
+
+    /**
+     * Post Güncelleme Adımı
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function PostUpdate(Request $request,$id){
+        dump($id);
+        $post = $this->postModel->getPostFromID($id);
+        dump($post);
+        return view('admin.post.create_post',['update'=>true,'post'=>$post]);
     }
 }
