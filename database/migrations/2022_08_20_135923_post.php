@@ -25,6 +25,7 @@ return new class extends Migration
             $table->longText('post_body')->nullable()->default(null);
             $table->string('tags')->nullable()->default(null);
             $table->timestamp('date')->useCurrent();
+            $table->timestamp('update_at')->default(null);
             $table->tinyInteger('status')->default(1);
         });
     }

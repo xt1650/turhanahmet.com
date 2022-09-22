@@ -68,10 +68,34 @@ class Post extends Controller
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function PostUpdate(Request $request,$id){
-        dump($id);
+    public function GetPostUpdateData(Request $request,$id){
+//        dump($id);
         $post = $this->postModel->getPostFromID($id);
-        dump($post);
+//        dump($post);
         return view('admin.post.create_post',['update'=>true,'post'=>$post]);
+    }
+
+    public function PostUpdate(Request $request, $post_id)
+    {
+        if ($request->image_change_control) {
+            dump('true');
+            $this->PostFileModel->updateFileStatus($post_id);// Mevcut resim|ler durumu 0'a çekiliyor
+            $rs = $this->toolsImage->SavePostFile($request->file('update_file_input')); // Güncelenen resim ekleniyor
+            $this->PostFileModel->saveFileInfo($post_id, $rs); // Yeni resim bilgisi veritabanına kaydediliyor
+            if ($rs == false) return false;
+        }
+
+        $user_id = Auth::user()->getAuthIdentifier();
+
+
+        $effected = $this->postModel->UpdatePost($request, $user_id, $post_id);
+
+
+        return redirect()->back()->with('message', 'Gönderi Güncelleme İşlemi Başarılı');
+    }
+
+    public function PostDelete($post_id){
+        return $this->postModel->DeletePost($post_id);
+
     }
 }

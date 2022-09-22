@@ -22,6 +22,9 @@ class PostDatatablesController extends Controller
             ->orderBy('post.date','desc');
 //        $users = User::select(['id','name','email','created_at','updated_at']);
         return Datatables::of($post)
+            ->editColumn('date', function ($date){
+                return $date->date->format('d/m/Y h:i');
+            })
             ->editColumn('status', function ($status){
                 if ($status->status == 1){
                     $css = 'text-success';
@@ -36,7 +39,8 @@ class PostDatatablesController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function ($user) {
                 return '<div class="d-flex gap-2">'.
-                     '<a href="#" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="bi bi-trash"></i></a>'.
+//                    href="'.route('admin.post.delete',['id'=>$user->id]).'"
+                     '<button type="button" class="btn btn-light btn-round mb-0" data-id="'.$user->id.'" ><i class="bi bi-trash"></i></button>'.
                     '<a href="'.route('admin.post.update',['id'=>$user->id]).'" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="bi bi-pencil-square"></i></a>'.
                     '</div>';
         })->make(true);

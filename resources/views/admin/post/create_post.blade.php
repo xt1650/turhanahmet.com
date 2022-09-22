@@ -9,7 +9,6 @@
         $data = $post;
     }
 
-    dump($durum,$data);
 @endphp
 @extends('admin.master')
 @section('css')
@@ -22,7 +21,11 @@
             selector: 'textarea#content', // Replace this CSS selector to match the placeholder element for TinyMCE
             plugins: 'code table lists',
             toolbar: 'undo redo | formatselect| bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table',
-            language:'tr_TR'
+            language:'tr_TR',
+            // setup: function (editor) {
+            //     editor.setContent('my content');
+            // },
+            // mode:'textareas',
         });
     </script>
     <!-- =======================
@@ -42,7 +45,7 @@ Main contain START -->
                         <!-- Card body -->
                         <div class="card-body">
                             <!-- Form START -->
-                            <form action="{{route('admin.post.controller')}}" method="post"  enctype="multipart/form-data">
+                            <form action="{{$durum ? route('admin.post.update',['id'=>$data['id']]) : route('admin.post.controller')}}" method="post"  enctype="multipart/form-data">
                                 <!-- Main form -->
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                 <div class="row">
@@ -120,8 +123,7 @@ Main contain START -->
                                     <div class="col-12">
                                         <div class="mb-3">
                                             <label class="form-label">Kısa Açıklama </label>
-                                            <textarea class="form-control" rows="3" name="short_description"  placeholder="Açıklama Ekle">{{ $durum ? $data['short_description'] : '' }}
-                                            </textarea>
+                                            <textarea class="form-control" rows="3" name="short_description"  placeholder="Açıklama Ekle">{{ $durum ? $data['short_description'] : '' }}</textarea>
                                         </div>
                                     </div>
 
@@ -130,19 +132,39 @@ Main contain START -->
                                         <!-- Subject -->
                                         <div class="mb-3">
                                             <label class="form-label"  for="content">Gönderi </label>
-                                            <textarea class="form-control" id="content" name="content"></textarea>
+                                            <textarea  class="form-control" id="content" name="content">{!! $durum ? $data['post_body'] : '' !!}</textarea>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="mb-3">
                                             <!-- Image -->
-                                            <div class="position-relative">
-                                                <h6 class="my-2">Gönderi resmini buraya yükleyin, veya<a href="#!" class="text-primary"> Göz Atın</a></h6>
-                                                <label class="w-100" style="cursor:pointer;">
+                                            <div class="row align-items-center mb-2">
+                                               @if($durum)
+                                                <div class="col-12 col-md-2">
+                                                    <div class="position-relative">
+                                                        <input type="text" name="image_change_control" value="0" hidden/>
+                                                        <input id="update_file_input" class="file-upload" name="update_file_input" type="file" accept="image/*" hidden/>
+                                                        <img class="rounded " id="preview_image"  src="{{  asset(json_decode($data['file_info'])->filename) }}"
+                                                             alt="">
+                                                        <div class="position-absolute top-0 end-0 mt-n2 me-n2">
+                                                            <button type="button" class="btn btn-icon btn-xs btn-danger" id="change_image_btn"><i
+                                                                    class="bi bi-x"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @else
+                                                <div class="col-sm-12 col-md-10 position-relative">
+                                                    <h6 class="my-2">Gönderi resmini buraya yükleyin, veya<a href="#!"
+                                                                                                             class="text-primary">
+                                                            Göz Atın</a></h6>
+                                                    <label class="w-100" style="cursor:pointer;">
                       <span>
-                        <input class="form-control stretched-link" type="file" name="image" id="image" accept="image/gif, image/jpeg, image/png" >
+                        <input class="form-control stretched-link" type="file" name="image" id="image"
+                               accept="image/gif, image/jpeg, image/png">
                       </span>
-                                                </label>
+                                                    </label>
+                                                </div>
+                                                @endif
                                             </div>
                                             <p class="small mb-0 mt-2"><b>Not:</b> Yalnızca JPG, JPEG ve PNG. Önerilen boyutlarımız 600px * 450px'dir. Daha büyük resim, küçük resimlerimize/önizlemelerimize uyması için 4:3'e kırpılacaktır.</p>
                                         </div>
@@ -170,14 +192,14 @@ Main contain START -->
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-12">
-                                        <div class="form-check mb-3">
-                                            <input class="form-check-input" type="checkbox" value="" id="postCheck">
-                                            <label class="form-check-label" for="postCheck">
-                                                Bu gönderi öne çıkarılsın mı?
-                                            </label>
-                                        </div>
-                                    </div>
+{{--                                    <div class="col-12">--}}
+{{--                                        <div class="form-check mb-3">--}}
+{{--                                            <input class="form-check-input" type="checkbox" value="" id="postCheck">--}}
+{{--                                            <label class="form-check-label" for="postCheck">--}}
+{{--                                                Bu gönderi öne çıkarılsın mı?--}}
+{{--                                            </label>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
                                     <!-- Create post button -->
                                     <div class="col-md-12 text-start">
                                         <button class="btn btn-primary w-100" type="submit">Gönderi {{ $durum ? 'Güncelle' : 'Oluştur' }}</button>
@@ -201,12 +223,21 @@ Main contain START -->
     Main contain END -->
 @endsection
 @section('script')
-{{--    <script src="{{asset('/')}}assets/vendor/quill/js/quill.min.js"></script>--}}
-    <script>
-        window.addEventListener('DOMContentLoaded',function (event) {
-            //todo:Editör content set araştırılacak
-            tinymce.activeEditor.setContent('{!! $durum ? $data['post_body'] : '' !!}', {format: 'raw'});
-        })
+    <script src="{{asset('/')}}js/dynamic/usefull_function.js"></script>
+    <script type="text/javascript">
+        window.addEventListener('DOMContentLoaded',function (e) {
+           var image_change_btn =  document.getElementById('change_image_btn');
+           var update_file_input =  document.getElementById('update_file_input');
+           var image_change_control = document.getElementsByName('image_change_control')
+            update_file_input.addEventListener('change',function (e) {
+                image_change_control[0].value = 1
+                new PreviewImage(e.target.files[0],'preview_image','src');
+            })
+            image_change_btn.addEventListener('click',function (e) {
+                update_file_input.click();
+            });
+
+        });
     </script>
     @endsection
 {{--<!-- Editor toolbar -->--}}

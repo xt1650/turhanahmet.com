@@ -33,4 +33,11 @@ class PostFileModel extends Model
         return $this->getKey();
     }
 
+    public function updateFileStatus($post_id, $status = 0)
+    {
+        return $this->where('post_id', '=', $post_id)->update([
+            'status' => $status
+        ]);
+    }
+
 }
