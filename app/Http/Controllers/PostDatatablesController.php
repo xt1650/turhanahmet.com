@@ -40,7 +40,7 @@ class PostDatatablesController extends Controller
             ->addColumn('action', function ($user) {
                 return '<div class="d-flex gap-2">'.
 //                    href="'.route('admin.post.delete',['id'=>$user->id]).'"
-                     '<button type="button" class="btn btn-light btn-round mb-0" data-id="'.$user->id.'" ><i class="bi bi-trash"></i></button>'.
+                     '<button type="button" class="btn btn-light btn-round mb-0" data-id="'.$user->id.'" onclick="delete"><i class="bi bi-trash"></i></button>'.
                     '<a href="'.route('admin.post.update',['id'=>$user->id]).'" class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="bi bi-pencil-square"></i></a>'.
                     '</div>';
         })->make(true);
