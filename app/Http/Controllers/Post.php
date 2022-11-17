@@ -94,8 +94,9 @@ class Post extends Controller
         return redirect()->back()->with('message', 'Gönderi Güncelleme İşlemi Başarılı');
     }
 
-    public function PostDelete($post_id){
-        return $this->postModel->DeletePost($post_id);
+    public function PostDelete(Request $request){
+
+        return $this->postModel->DeletePost($request->postId);
 
     }
 }

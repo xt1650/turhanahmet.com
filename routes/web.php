@@ -89,7 +89,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::post('/create_post', [Post::class,'PostCreate'])->name('admin.post.controller');
         Route::get('/update_post/{id}',[Post::class,'GetPostUpdateData'])->name('admin.post.update');
         Route::post('/update_post/{id}', [Post::class,'PostUpdate'])->name('admin.post.update');
-        Route::post('/delete_post/{id}', [Post::class,'PostDelete'])->name('admin.post.delete');
+        Route::post('/delete_post', [Post::class,'PostDelete'])->name('admin.post.delete');
 
         /**
          * Create About Page and Post

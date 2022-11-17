@@ -39,21 +39,18 @@ Footer END -->
 <div class="back-top"><i class="bi bi-arrow-up-short"></i></div>
 
 <!-- =======================
-JS libraries, plugins and custom scripts -->""
+JS libraries, plugins and custom scripts -->
 
 <!-- Bootstrap JS -->
-{{--<script src="{{asset('/')}}assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>--}}
-<script src="{{asset('/js/app.js')}}"></script>
-<!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<script src="{{asset('/')}}assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
 <!-- Vendors -->
 <script src="{{asset('/')}}assets/vendor/apexcharts/js/apexcharts.min.js"></script>
 <script src="{{asset('/')}}assets/vendor/overlay-scrollbar/js/OverlayScrollbars.min.js"></script>
 <script src="{{asset('/')}}assets/js/jquery-3.6.1.min.js"></script>
+@yield('script')
 <!-- Template Functions -->
 <script src="{{asset('/')}}assets/js/functions.js"></script>
-@yield('script')
-
 
 
 

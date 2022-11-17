@@ -7,28 +7,13 @@
     @endsection
 @section('main')
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#dynamicModal">
         Launch static backdrop modal
     </button>
 
     <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Understood</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('component.modal',['title'=>'Kayıt Siliniyor',
+                                'content'=>'Silme İşlemi Geri Alınamaz.Onaylıyor musunuz ?','cancelBtnName'=>'İptal','ConfirmBtnName'=>'Evet,Onaylıyorum.'])
     <!-- ======================= Post list START -->
     <section class="py-4">
         <div class="container">
@@ -220,7 +205,11 @@
 @endsection
 @section('script')
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="{{asset('/')}}js/app.js"></script>
+    <script type="text/javascript" src="{{asset('/')}}js/axios/post.js"></script>
     <script>
+        var body = $('body');
+        let deleteId = null;
         $(document).ready(function () {
            let postTable=  $('#postTable').DataTable({
                 processing: true,
@@ -247,16 +236,28 @@
                     { data: 'category_id', name: 'category_id' },
                     { data: 'status', name: 'status' },
                     { data: 'action', name: 'action', orderable: false, searchable: false}
-                ],
-               drawCallback: function( settings ) {
-                   let btns=document.querySelectorAll('button[data-id]');
-
-               }
+                ]
+            });
+            /**
+             * Datatable silinecek kayıt yakalanıyor
+             */
+            body.on("click", "[data-id]", function (e) {
+                deleteId = $(this).data('id');
+                $('#dynamicModal').modal('show');
             });
 
+            /**
+             * Modal Onaylama işlemi
+             */
+            $('#confirmBtn').on('click',async function (e) {
+                if (deleteId !== null) {
+                    console.log("ajax sending")
+                    var sonuc = await PrepareAxiosCall('post', '{{route('admin.post.delete')}}', {postId: deleteId})
+                    $('#dynamicModal').modal('hide');
 
 
-
+                }
+            })
         });
     </script>
 @endsection
