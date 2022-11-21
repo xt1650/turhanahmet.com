@@ -1,9 +1,10 @@
 @php
+
     $cardImage = '';
         if(!is_null($post['file_info'])){
             $cardImage = (json_decode($post['file_info']))->filename;
         }
-
+//dd($post);
 @endphp
 
 @extends('layout.master')
@@ -72,7 +73,7 @@ Inner intro START -->
                             <div>
                                 <div class="d-sm-flex align-items-center justify-content-between">
                                     <div>
-                                        <h4 class="m-0"><a href="#">Louis Ferguson</a></h4>
+                                        <h4 class="m-0"><a href="#">{{1}}</a></h4>
                                         <small>An editor at Blogzine</small>
                                     </div>
                                     <a href="#" class="btn btn-xs btn-primary-soft">View Articles</a>
@@ -162,30 +163,34 @@ Inner intro START -->
                         <!-- Comments END -->
                         <!-- Reply START -->
                         <div>
-                            <h3>Leave a reply</h3>
-                            <small>Your email address will not be published. Required fields are marked *</small>
-                            <form class="row g-3 mt-2">
-                                <div class="col-md-6">
-                                    <label class="form-label">Name *</label>
-                                    <input type="text" class="form-control" aria-label="First name">
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Email *</label>
-                                    <input type="email" class="form-control">
-                                </div>
+                            <h3>Yorum Ekleyin</h3>
+
+                            @if(!Auth::check())
+                            <small>Yorum Yapmak ve Gönderi Oluşturmak için <a href="{{route('register.show')}}">Üye Ol</a> veya <a href="{{route('login.show')}}">Giriş Yap</a>*</small>
+                            @endif
+                            <form method="post" action="{{route('post.comment.save')}}" class="row g-3 mt-2">
+                                <input  value="{{csrf_token()}}" hidden>
+{{--                                <div class="col-md-6">--}}
+{{--                                    <label class="form-label">Name *</label>--}}
+{{--                                    <input type="text" class="form-control" aria-label="First name">--}}
+{{--                                </div>--}}
+{{--                                <div class="col-md-6">--}}
+{{--                                    <label class="form-label">Email *</label>--}}
+{{--                                    <input type="email" class="form-control">--}}
+{{--                                </div>--}}
                                 <!-- custom checkbox -->
-                                <div class="col-md-12">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                        <label class="form-check-label" for="flexCheckDefault">Save my name and email in this browser for the next time I comment. </label>
-                                    </div>
-                                </div>
+{{--                                <div class="col-md-12">--}}
+{{--                                    <div class="form-check">--}}
+{{--                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">--}}
+{{--                                        <label class="form-check-label" for="flexCheckDefault">Save my name and email in this browser for the next time I comment. </label>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
                                 <div class="col-12">
-                                    <label class="form-label">Your Comment *</label>
+                                    <label class="form-label">Yorumunuz *</label>
                                     <textarea class="form-control" rows="3"></textarea>
                                 </div>
                                 <div class="col-12">
-                                    <button type="submit" class="btn btn-primary">Post comment</button>
+                                    <button type="submit" class="btn btn-primary">Yorum Yap</button>
                                 </div>
                             </form>
                         </div>

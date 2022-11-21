@@ -99,4 +99,9 @@ class Post extends Controller
         return $this->postModel->DeletePost($request->postId);
 
     }
+
+
+    public function PostCommentSave(Request $request){
+
+    }
 }

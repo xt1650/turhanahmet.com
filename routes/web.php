@@ -76,8 +76,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          */
         Route::get('/logout', 'Logout@perform')->name('logout.perform');
 
-
-
+            /**
+             * Post Comments
+             */
+            Route::post('/post_comments_add', [Post::class,'PostCommentSave'])->name('post.comment.save');
 
 
         /**
