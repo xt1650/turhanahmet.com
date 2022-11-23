@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Tools\FileTools;
+use App\Models\CommentsModel;
 use App\Models\PostFileModel;
 use Illuminate\Http\Request;
 use App\Models\PostModel as PostModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Validator;
 
 
 class Post extends Controller
@@ -102,6 +104,22 @@ class Post extends Controller
 
 
     public function PostCommentSave(Request $request){
+        $validator =  Validator::make($request->all(),[
+            'comment' => 'required|min:1|max:255',
+        ])->validate(); //Doğrulama başarısız olursa hata döner http status :422
 
+
+        $commentsModel = new CommentsModel();
+        $commentsModel->user_id = Crypt::decrypt($request->input('user-id'));
+        $commentsModel->post_id = Crypt::decrypt($request->input('post-id'));
+        $commentsModel->comment_content = $request->comment;
+        $commentsModel->parent_comment_id = $request->parentCommentId;
+        $rs = $commentsModel->save();
+
+
+        return response()
+            ->json(['status' => $rs, 'state' => $request->input()]);
+//            ->withCallback($request->input('callback'));
+//            ->withCallback($request->input());
     }
 }

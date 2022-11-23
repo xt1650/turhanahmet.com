@@ -19,7 +19,8 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('post_id');
-            $table->integer('parent_comment_id');
+            $table->integer('parent_comment_id')->nullable();
+            $table->text('comment_content')->nullable(false);
             $table->timestamp('date')->useCurrent();
             $table->boolean('status')->default(1);
 
