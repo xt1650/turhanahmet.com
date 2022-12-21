@@ -4,6 +4,7 @@ use App\Http\Controllers\About;
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\Post;
 use App\Http\Controllers\PostDatatablesController;
+use App\Http\Middleware\ProfileUpdateDataValidation;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Register;
@@ -84,16 +85,14 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         /**
          * Admin Panel Action
          */
-        Route::get('/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('dashboard');
+        Route::get('/dashboard', function () {return view('admin.dashboard');})->name('dashboard');
 
-        Route::get('/create_post', function () {
-            return view('admin.post.create_post');
-        })->name('admin.post.create');
+        Route::get('/create_post', function () {return view('admin.post.create_post');})->name('admin.post.create');
         Route::post('/create_post', [Post::class, 'PostCreate'])->name('admin.post.controller');
+
         Route::get('/update_post/{id}', [Post::class, 'GetPostUpdateData'])->name('admin.post.update');
         Route::post('/update_post/{id}', [Post::class, 'PostUpdate'])->name('admin.post.update');
+
         Route::post('/delete_post', [Post::class, 'PostDelete'])->name('admin.post.delete');
 
         /**
@@ -105,6 +104,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         Route::get('/edit_profile', [Admin::class, 'GetProfile'])->name('admin.profile.controller');
         Route::post('/save_profile_changes', [Admin::class, 'SaveProfileChanges'])->name('ajax.profile');
+        Route::post('/save_profile_info/{user_id}',[Admin::class,'setProfileInfo'])->middleware(ProfileUpdateDataValidation::class)->name('save.profile.info');
 
         Route::get('/post_list', [Post::class, 'GetPostList'])->name('admin.post.list');
         Route::post('/datatables/post_list', [PostDatatablesController::class, 'getDatatablesPost'])->name('datatables.post.list');

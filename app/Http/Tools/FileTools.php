@@ -27,7 +27,7 @@ class FileTools{
         $extension =$file->extension();
         $size = $file->getSize();
 
-        $fileName ='images/'.time().'_'.random_int(0,100).'.'.$extension;
+        $fileName ='images/'.time().'-'.uniqid().'.'.$extension;
 
 
 

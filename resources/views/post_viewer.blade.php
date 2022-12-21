@@ -1,10 +1,14 @@
 @php
 
-    use Illuminate\Support\Facades\Crypt;$cardImage = '';
+    use Carbon\Carbon;
+    use Illuminate\Support\Facades\Crypt;
+
+    $cardImage = '';
         if(!is_null($post['file_info'])){
             $cardImage = (json_decode($post['file_info']))->filename;
         }
 //dd($post);
+//dump($comments);
 @endphp
 
 @extends('layout.master')
@@ -42,7 +46,7 @@ Inner intro START -->
                                             </div>
                                         </div>
                                     </li>
-                                    <li class="nav-item">{{\Carbon\Carbon::create($post['date'])->translatedFormat('d F Y')}}</li>
+                                    <li class="nav-item">{{Carbon::create($post['date'])->translatedFormat('d F Y')}}</li>
                                     {{--                                        <li class="nav-item">5 min read</li>--}}
                                 </ul>
                             </div>
@@ -146,81 +150,82 @@ Inner intro START -->
 
                     <!-- Comments START -->
                     <div class="mt-5">
-                        <h3>5 comments</h3>
-                        <!-- Comment level 1-->
-                        <div class="my-4 d-flex">
-                            <img class="avatar avatar-md rounded-circle float-start me-3"
-                                 src="{{asset('/')}}assets/images/avatar/01.jpg" alt="avatar">
-                            <div>
-                                <div class="mb-2">
-                                    <h5 class="m-0">Allen Smith</h5>
-                                    <span class="me-3 small">June 11, 2022 at 6:01 am </span>
-                                    <a href="#" class="text-body fw-normal">Reply</a>
+                        <h3>{{count($comments)}} Yorum</h3>
+                        @foreach($comments as $key=>$value)
+                            <!-- Comment level 1-->
+                            <div class="my-4 d-flex">
+                                <img class="avatar avatar-md rounded-circle float-start me-3"
+                                     src="{{asset('/')}}assets/images/avatar/01.jpg" alt="avatar">
+                                <div>
+                                    <div class="mb-2">
+                                        <h5 class="m-0">{{$value['name']}}</h5>
+                                        <span class="me-3 small">{{Carbon::create($value['date'])->translatedFormat('d F Y H:i')}}</span>
+                                        <a href="#" class="text-body fw-normal">Yanıtla</a>
+                                    </div>
+                                    <p>{{$value['comment_content']}}</p>
                                 </div>
-                                <p>Satisfied conveying a dependent contented he gentleman agreeable do be. Warrant
-                                    private blushes removed an in equally totally if. Delivered dejection necessary
-                                    objection do Mr prevailed. Mr feeling does chiefly cordial in do. </p>
                             </div>
-                        </div>
-                        <!-- Comment children level 2 -->
-                        <div class="my-4 d-flex ps-2 ps-md-3">
-                            <img class="avatar avatar-md rounded-circle float-start me-3"
-                                 src="{{asset('/')}}assets/images/avatar/02.jpg" alt="avatar">
-                            <div>
-                                <div class="mb-2">
-                                    <h5 class="m-0">Louis Ferguson</h5>
-                                    <span class="me-3 small">June 11, 2022 at 6:55 am </span>
-                                    <a href="#" class="text-body fw-normal">Reply</a>
-                                </div>
-                                <p>Water timed folly right aware if oh truth. Imprudence attachment him his for
-                                    sympathize. Large above be to means. Dashwood does provide stronger is. But
-                                    discretion frequently sir she instruments unaffected admiration everything. </p>
-                            </div>
-                        </div>
-                        <!-- Comment children level 3 -->
-                        <div class="my-4 d-flex ps-3 ps-md-5">
-                            <img class="avatar avatar-md rounded-circle float-start me-3"
-                                 src="{{asset('/')}}assets/images/avatar/01.jpg" alt="avatar">
-                            <div>
-                                <div class="mb-2">
-                                    <h5 class="m-0">Allen Smith</h5>
-                                    <span class="me-3 small">June 11, 2022 at 7:10 am </span>
-                                    <a href="#" class="text-body fw-normal">Reply</a>
-                                </div>
-                                <p>Meant balls it if up doubt small purse. </p>
-                            </div>
-                        </div>
-                        <!-- Comment level 2 -->
-                        <div class="my-4 d-flex ps-2 ps-md-3">
-                            <img class="avatar avatar-md rounded-circle float-start me-3"
-                                 src="{{asset('/')}}assets/images/avatar/03.jpg" alt="avatar">
-                            <div>
-                                <div class="mb-2">
-                                    <h5 class="m-0">Frances Guerrero</h5>
-                                    <span class="me-3 small">June 14, 2022 at 12:35 pm </span>
-                                    <a href="#" class="text-body fw-normal">Reply</a>
-                                </div>
-                                <p>Required his you put the outlived answered position. A pleasure exertion if believed
-                                    provided to. All led out world this music while asked. Paid mind even sons does he
-                                    door no. Attended overcame repeated it is perceived Marianne in. I think on style
-                                    child of. Servants moreover in sensible it ye possible. </p>
-                            </div>
-                        </div>
-                        <!-- Comment level 1 -->
-                        <div class="my-4 d-flex">
-                            <img class="avatar avatar-md rounded-circle float-start me-3"
-                                 src="{{asset('/')}}assets/images/avatar/04.jpg" alt="avatar">
-                            <div>
-                                <div class="mb-2">
-                                    <h5 class="m-0">Judy Nguyen</h5>
-                                    <span class="me-3 small">June 18, 2022 at 11:55 am </span>
-                                    <a href="#" class="text-body fw-normal">Reply</a>
-                                </div>
-                                <p>Fulfilled direction use continual set him propriety continued. Saw met applauded
-                                    favorite deficient engrossed concealed and her. Concluded boy perpetual old
-                                    supposing. Farther related bed and passage comfort civilly. </p>
-                            </div>
-                        </div>
+                        @endforeach
+
+{{--                                                <!-- Comment children level 2 -->--}}
+{{--                                                <div class="my-4 d-flex ps-2 ps-md-3">--}}
+{{--                                                    <img class="avatar avatar-md rounded-circle float-start me-3"--}}
+{{--                                                         src="{{asset('/')}}assets/images/avatar/02.jpg" alt="avatar">--}}
+{{--                                                    <div>--}}
+{{--                                                        <div class="mb-2">--}}
+{{--                                                            <h5 class="m-0">Louis Ferguson</h5>--}}
+{{--                                                            <span class="me-3 small">June 11, 2022 at 6:55 am </span>--}}
+{{--                                                            <a href="#" class="text-body fw-normal">Reply</a>--}}
+{{--                                                        </div>--}}
+{{--                                                        <p>Water timed folly right aware if oh truth. Imprudence attachment him his for--}}
+{{--                                                            sympathize. Large above be to means. Dashwood does provide stronger is. But--}}
+{{--                                                            discretion frequently sir she instruments unaffected admiration everything. </p>--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+{{--                                                <!-- Comment children level 3 -->--}}
+{{--                                                <div class="my-4 d-flex ps-3 ps-md-5">--}}
+{{--                                                    <img class="avatar avatar-md rounded-circle float-start me-3"--}}
+{{--                                                         src="{{asset('/')}}assets/images/avatar/01.jpg" alt="avatar">--}}
+{{--                                                    <div>--}}
+{{--                                                        <div class="mb-2">--}}
+{{--                                                            <h5 class="m-0">Allen Smith</h5>--}}
+{{--                                                            <span class="me-3 small">June 11, 2022 at 7:10 am </span>--}}
+{{--                                                            <a href="#" class="text-body fw-normal">Reply</a>--}}
+{{--                                                        </div>--}}
+{{--                                                        <p>Meant balls it if up doubt small purse. </p>--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+{{--                                                <!-- Comment level 2 -->--}}
+{{--                                                <div class="my-4 d-flex ps-2 ps-md-3">--}}
+{{--                                                    <img class="avatar avatar-md rounded-circle float-start me-3"--}}
+{{--                                                         src="{{asset('/')}}assets/images/avatar/03.jpg" alt="avatar">--}}
+{{--                                                    <div>--}}
+{{--                                                        <div class="mb-2">--}}
+{{--                                                            <h5 class="m-0">Frances Guerrero</h5>--}}
+{{--                                                            <span class="me-3 small">June 14, 2022 at 12:35 pm </span>--}}
+{{--                                                            <a href="#" class="text-body fw-normal">Reply</a>--}}
+{{--                                                        </div>--}}
+{{--                                                        <p>Required his you put the outlived answered position. A pleasure exertion if believed--}}
+{{--                                                            provided to. All led out world this music while asked. Paid mind even sons does he--}}
+{{--                                                            door no. Attended overcame repeated it is perceived Marianne in. I think on style--}}
+{{--                                                            child of. Servants moreover in sensible it ye possible. </p>--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+{{--                                                <!-- Comment level 1 -->--}}
+{{--                                                <div class="my-4 d-flex">--}}
+{{--                                                    <img class="avatar avatar-md rounded-circle float-start me-3"--}}
+{{--                                                         src="{{asset('/')}}assets/images/avatar/04.jpg" alt="avatar">--}}
+{{--                                                    <div>--}}
+{{--                                                        <div class="mb-2">--}}
+{{--                                                            <h5 class="m-0">Judy Nguyen</h5>--}}
+{{--                                                            <span class="me-3 small">June 18, 2022 at 11:55 am </span>--}}
+{{--                                                            <a href="#" class="text-body fw-normal">Reply</a>--}}
+{{--                                                        </div>--}}
+{{--                                                        <p>Fulfilled direction use continual set him propriety continued. Saw met applauded--}}
+{{--                                                            favorite deficient engrossed concealed and her. Concluded boy perpetual old--}}
+{{--                                                            supposing. Farther related bed and passage comfort civilly. </p>--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
 
                     </div>
                     <!-- Comments END -->
@@ -259,19 +264,19 @@ Inner intro START -->
              */
             submitComment.on('click', function (e) {
 
-                const comment =comments.val();
+                const comment = comments.val();
                 const _token = "{{ csrf_token() }}";
                 const _postId = "{{ Crypt::encrypt($post["id"]) }}"
                 const _userId = "{{ Crypt::encrypt($post["user_id"]) }}"
                 const _parentCommentId = "";
                 console.log(comment)
-                PrepareAxiosCall('post','{{route('post.comment.save')}}',{
-                    comment:comment,
-                    _token:_token,
-                    'post-id':_postId,
-                    'user-id':_userId,
-                    'parentCommentId':_parentCommentId
-                }).then(res=> {
+                PrepareAxiosCall('post', '{{route('post.comment.save')}}', {
+                    comment: comment,
+                    _token: _token,
+                    'post-id': _postId,
+                    'user-id': _userId,
+                    'parentCommentId': _parentCommentId
+                }).then(res => {
                     console.log(res)
                 })
 

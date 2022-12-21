@@ -1,5 +1,7 @@
 @php
-    $user_info
+//    dump($user_info,$settings,$personal_info);
+//    dump($user_info['id']);
+//    $settings = null;
 @endphp
 @extends('admin.master')
 @section('main')
@@ -12,14 +14,14 @@
                 <div class="col-12">
                     <div class="card mb-4 position-relative z-index-9">
                         <!-- Cover image -->
-                        <div class="py-5 h-200 rounded" style="background-image:url({{asset('/')}}assets/images/blog/16by9/big/07.jpg); background-position: center bottom; background-size: cover; background-repeat: no-repeat;">
+                        <div class="py-5 h-200 rounded" style="background-image:url({{asset('/')}}{{$settings['background_image'] ?? 'assets/images/blog/16by9/big/07.jpg'}}); background-position: center bottom; background-size: cover; background-repeat: no-repeat;">
                         </div>
                         <div class="card-body pt-3 pb-0">
                             <div class="row d-flex justify-content-between">
                                 <!-- Avatar -->
                                 <div class="col-sm-12 col-md-auto text-center text-md-start">
                                     <div class="avatar avatar-xxl mt-n5">
-                                        <img class="avatar-img rounded-circle border border-white border-3 shadow" src="{{asset('/')}}assets/images/avatar/teles-bot.svg" alt="">
+                                        <img class="avatar-img rounded-circle border border-white border-3 shadow" src="{{asset('/')}}{{$settings['profile_image'] ?? 'assets/images/avatar/teles-bot.svg'}}" alt="">
                                     </div>
                                 </div>
                                 <!-- Profile info -->
@@ -67,10 +69,103 @@
             <div class="row g-4">
                 <!-- Left sidebar START -->
                 <div class="col-lg-7 col-xxl-8">
+                    <!-- Profile Setting START-->
+                    <div class="card border mb-4">
+                        <div class="card-header border-bottom p-3">
+                            <h5 class="card-header-title mb-0">Profil Bilgileri</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="profile_info_form" method="post" enctype="multipart/form-data" >
+                                <input hidden value="{{csrf_token()}}">
+
+                                <!-- Profile title -->
+                                <div class="mb-3">
+                                    <label class="form-label">Profil Başlığı</label>
+                                    <input class="form-control" type="text" name="profile_title" value="{{$settings['profile_title'] ?? ""}} ">
+                                </div>
+                                <!-- Profile picture -->
+                                <div class="mb-3">
+                                    <label class="form-label">Profil Resmi</label>
+                                    <!-- Avatar upload START -->
+                                    <div class="d-flex align-items-center">
+                                        <div class="position-relative me-3">
+                                            <!-- Avatar edit -->
+                                            <div class="position-absolute top-0 end-0  z-index-9">
+
+                                                <button type="button" class="btn btn-sm btn-light btn-round mb-0 mt-n1 me-n1" id="add_avatar"> <i class="bi bi-pencil"></i> </button>
+                                            </div>
+                                            <!-- Avatar preview -->
+                                            <div class="avatar avatar-xl">
+                                                <input id="profile_file_input" name="profile_file_input" class="file-upload" type="file" accept="image/*" hidden/>
+                                                <img id="bordered_profile" class="avatar-img rounded-circle border border-white border-3 shadow" src="{{asset('/')}}{{$settings['profile_image'] ?? 'assets/images/avatar/teles-bot.svg'}}" alt="">
+                                            </div>
+                                        </div>
+                                        <!-- Avatar remove button -->
+                                        <div class="avatar-remove">
+                                            <button type="button" class="btn btn-light">Sil</button>
+                                        </div>
+                                    </div>
+                                    <!-- Avatar upload END -->
+                                </div>
+                                <!-- Cover image -->
+                                <!-- Profile title -->
+                                <div class="mb-3">
+                                    <label class="form-label">Profil ArkaPlan Resmi</label>
+                                    <div class="d-flex align-items-center">
+                                        <div class="position-relative me-3">
+                                            <!-- Avatar edit -->
+                                            <div class="position-absolute top-0 end-0  z-index-9">
+
+                                                <button type="button" class="btn btn-sm btn-light btn-round mb-0 mt-n1 me-n1" id="add_profile_background"> <i class="bi bi-pencil"></i> </button>
+                                            </div>
+                                            <input id="profile_background" name="profile_background" class="file-upload" type="file" accept="image/*" hidden/>
+                                            <img id="profile_background_img" class=" border border-white border-3 shadow h-90 w-160" src="{{asset('/')}}{{$settings['background_image'] ?? 'assets/images/blog/16by9/big/07.jpg'}}" alt="">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <!-- Location -->
+                                <div class="mb-3">
+                                    <label class="form-label">Konum</label>
+                                    <input class="form-control" type="text" name="adress" value="{{$settings['location'] ?? ""}}">
+                                </div>
+                                <!-- Bio -->
+                                <div class="mb-3">
+                                    <label class="form-label">Bio</label>
+                                    <textarea class="form-control" name="bio_info" rows="3">{{$settings['bio'] ?? ""}}</textarea>
+                                    <div class="form-text">Profiliniz Hakkında kısaca bilgiler veriniz.</div>
+                                </div>
+                                <!-- Save button -->
+                                <div class="d-flex justify-content-end mt-4">
+                                    <a href="#" class="btn text-secondary border-0 me-2">İptal</a>
+                                    <button type="submit" id="profile_info_btn" value="1" class="btn btn-primary">Değişiklikleri Kaydet</button>
+                                </div>
+                                <div class="alert alert-success alert-dismissible fade show" role="alert" id="saveOrUpdateProfileAlerts" hidden>
+                                    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                                        <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                                        </symbol>
+                                        <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                                        </symbol>
+                                        <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                        </symbol>
+                                    </svg>
+                                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                                    <strong>Kaydetme Başarılı!</strong> Profiliniz başarılı bir şekilde kaydedilmiştir.
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Kapat"></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Profile Setting END-->
                     <!-- Profile START -->
                     <div class="card border mb-4">
                         <div class="card-header border-bottom p-3">
-                            <h5 class="card-header-title mb-0">Profile</h5>
+                            <h5 class="card-header-title mb-0">Profil</h5>
                         </div>
                         <div class="card-body">
                             <form id="saveChangesProfileFirst" method="post" enctype="multipart/form-data" >
@@ -79,8 +174,8 @@
                             <div class="mb-3">
                                 <label class="form-label">Ad-Soyad</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" value="{{--$user_info['ad']--}}" placeholder="Ad">
-                                    <input type="text" class="form-control" value="{{--$user_info['soyad']--}}" placeholder="Soyad">
+                                    <input type="text" class="form-control" name="ad" value="{{--$user_info['ad']--}}" placeholder="Ad">
+                                    <input type="text" class="form-control" name="soyad" value="{{--$user_info['soyad']--}}" placeholder="Soyad">
                                 </div>
                             </div>
                             <!-- Username -->
@@ -88,58 +183,35 @@
                                 <label class="form-label">Kullanıcı Adı</label>
                                 <div class="input-group">
                                     <span class="input-group-text">turhanahmet.com</span>
-                                    <input type="text" class="form-control" value="{{$user_info['name']}}">
+                                    <input type="text" class="form-control" name="user_name" value="{{$user_info['name']}}">
                                 </div>
                             </div>
-                            <!-- Profile picture -->
-                            <div class="mb-3">
-                                <label class="form-label">Profil Resmi</label>
-                                <!-- Avatar upload START -->
-                                <div class="d-flex align-items-center">
-                                    <div class="position-relative me-3">
-                                        <!-- Avatar edit -->
-                                        <div class="position-absolute top-0 end-0  z-index-9">
 
-                                            <button type="button" class="btn btn-sm btn-light btn-round mb-0 mt-n1 me-n1" id="add_avatar"> <i class="bi bi-pencil"></i> </button>
-                                        </div>
-                                        <!-- Avatar preview -->
-                                        <div class="avatar avatar-xl">
-                                            <input id="profile_file_input" class="file-upload" type="file" accept="image/*" hidden/>
-                                            <img id="bordered_profile" class="avatar-img rounded-circle border border-white border-3 shadow" src="{{asset('/')}}assets/images/avatar/03.jpg" alt="">
-                                        </div>
-                                    </div>
-                                    <!-- Avatar remove button -->
-                                    <div class="avatar-remove">
-                                        <button type="button" class="btn btn-light">Sil</button>
-                                    </div>
-                                </div>
-                                <!-- Avatar upload END -->
-                            </div>
                             <!-- Job title -->
                             <div class="mb-3">
                                 <label class="form-label">Meslek Adı</label>
-                                <input class="form-control" type="text" value="An editor at Blogzine">
+                                <input class="form-control" type="text" name="job" value="An editor at Blogzine">
                             </div>
                             <!-- Location -->
                             <div class="mb-3">
-                                <label class="form-label">Konu</label>
-                                <input class="form-control" type="text" value="New Hampshire">
+                                <label class="form-label">Konum</label>
+                                <input class="form-control" type="text" name="adress" value="New Hampshire">
                             </div>
                             <!-- Bio -->
                             <div class="mb-3">
                                 <label class="form-label">Bio</label>
-                                <textarea class="form-control" rows="3">I’ve found a way to get paid for my favorite hobby, and do so while following my dream of traveling the world.</textarea>
+                                <textarea class="form-control" name="bio_info" rows="3">I’ve found a way to get paid for my favorite hobby, and do so while following my dream of traveling the world.</textarea>
                                 <div class="form-text">Brief description for your profile.</div>
                             </div>
                             <!-- Birthday -->
                             <div>
                                 <label class="form-label">Birthday</label>
-                                <input type="text" class="form-control flatpickr-input" placeholder="DD/MM/YYYY" value="12/10/1990">
+                                <input type="text" name="dogum_tarih" class="form-control flatpickr-input" placeholder="DD/MM/YYYY" value="12/10/1990">
                             </div>
                             <!-- Save button -->
                             <div class="d-flex justify-content-end mt-4">
                                 <a href="#" class="btn text-secondary border-0 me-2">İptal</a>
-                                <button type="button" id="base_profile" value="1" class="btn btn-primary">Değişiklikleri Kaydet</button>
+                                <button type="submit" id="base_profile" value="1" class="btn btn-primary">Değişiklikleri Kaydet</button>
                             </div>
                             </form>
                         </div>
@@ -372,11 +444,20 @@
     <script src="{{asset('/')}}js/axios/profile.js"></script>
 <script>
 
+
+
     document.addEventListener("DOMContentLoaded", () => {
         let add_avatar= document.getElementById('add_avatar');
+        let add_profile_background= document.getElementById('add_profile_background');
         let profile_file_input= document.getElementById('profile_file_input');
+        let profile_background= document.getElementById('profile_background');
         let circle = document.getElementById('bordered_profile');
+        let circleBackground = document.getElementById('profile_background_img');
         let changeSaveButtonFirst = document.getElementById('base_profile');
+
+
+
+
         /**
          * Image Preview in img elements
          */
@@ -384,29 +465,73 @@
             var img = URL.createObjectURL(e.target.files[0]);
             circle.setAttribute('src', img);
         });
+        profile_background.addEventListener('change',function (e) {
+            var img = URL.createObjectURL(e.target.files[0]);
+            circleBackground.setAttribute('src', img);
+        });
 
         add_avatar.addEventListener('click',function (e) {
             document.getElementById('profile_file_input').click();
         });
+        add_profile_background.addEventListener('click',function (e) {
+            document.getElementById('profile_background').click();
+        });
 
 
-        changeSaveButtonFirst.addEventListener('click',function (event) {
-            // Promise.any([BasicProfile('/save_profile_changes',{a:'b'})])
-            //     .then(function (results) {
-            //         console.log("results")
-            //         console.log(results)
-            //     })  .catch(function (error) {
-            //     console.log(error);
-            // });
-            var forms = document.getElementById('saveChangesProfileFirst');
+        // changeSaveButtonFirst.addEventListener('click',function (event) {
+        //     // Promise.any([BasicProfile('/save_profile_changes',{a:'b'})])
+        //     //     .then(function (results) {
+        //     //         console.log("results")
+        //     //         console.log(results)
+        //     //     })  .catch(function (error) {
+        //     //     console.log(error);
+        //     // });
+        //     // var forms = document.getElementById('saveChangesProfileFirst');
+        //     var forms = $('#saveChangesProfileFirst');
+        //     console.log(forms.serialize())
+        //     // BasicProfile('/save_profile_changes',new URLSearchParams(new FormData(forms)).toString()).then(function (response) {
+        //     //     console.log(response)
+        //     // })
+        // })
+        let forms = $('#saveChangesProfileFirst');
+        let profileInfoForms = $('#profile_info_form');
+        profileInfoForms.on('submit',function (e) {
+            e.preventDefault();
+            e.stopPropagation();
 
-            BasicProfile('/save_profile_changes',new URLSearchParams(new FormData(forms)).toString()).then(function (response) {
+
+            let formData = new FormData(profileInfoForms[0]);
+
+            if(profile_background.files[0] !== undefined ){
+                formData.append("file", profile_background.files[0]);
+            }
+            if(profile_file_input.files[0] !== undefined ){
+                formData.append("file", profile_file_input.files[0]);
+            }
+
+            formData.append("id", {{$settings['id'] ?? null}});
+
+
+            BasicProfile('{{route('save.profile.info',['user_id'=>$user_info['id']])}}',formData,true).then(function (response) {
                 console.log(response)
+
+                response.data ? $('#saveOrUpdateProfileAlerts').removeAttr('hidden') : alert('Kayıt Başarısız');
             })
-        })
+        });
+        forms.on('submit',function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log($(this).serialize())
+            console.log($(this).serializeArray())
+            console.log(profile_file_input.files[0])
 
+            let formData = new FormData(forms[0]);
+            formData.append("file", profile_file_input.files[0]);
 
-
+                BasicProfile('/save_profile_changes',formData,true).then(function (response) {
+                    console.log(response)
+                })
+            });
 
     });
 </script>

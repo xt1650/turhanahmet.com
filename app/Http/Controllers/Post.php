@@ -52,8 +52,13 @@ class Post extends Controller
 
         $post_id = Crypt::decrypt($post_id);
         $post = $this->postModel->getPostFromID($post_id);
-
-        return view('post_viewer',['post'=>$post]);
+        $commentsModel = new CommentsModel();
+        $comments = $commentsModel->select('comments.*','u.name')
+            ->leftJoin('users as u', 'u.id', '=', 'comments.user_id')
+            ->where('post_id','=',$post_id)
+            ->whereNull('parent_comment_id')
+                ->get()->toArray();
+        return view('post_viewer',['post'=>$post,'comments'=>$comments]);
 
     }
 
