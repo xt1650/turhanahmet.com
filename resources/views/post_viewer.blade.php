@@ -9,6 +9,8 @@
         }
 //dd($post);
 //dump($comments);
+dump($personelSettings);
+dump($comments);
 @endphp
 
 @extends('layout.master')
@@ -38,7 +40,7 @@ Inner intro START -->
                                             <div class="d-flex align-items-center text-white position-relative">
                                                 <div class="avatar avatar-sm">
                                                     <img class="avatar-img rounded-circle"
-                                                         src="{{asset('/')}}images/1661711473_75.jpg" alt="avatar">
+                                                         src="{{asset('/').$personelSettings['profile_image']}}" alt="avatar">
                                                     <!-- Geçici Avatar 1-1-->
                                                 </div>
                                                 <span class="ms-3"> <a href="#"
@@ -77,7 +79,7 @@ Inner intro START -->
                         <!-- Avatar -->
                         <a href="#">
                             <div class="avatar avatar-xxl me-2 me-md-4">
-                                <img class="avatar-img rounded-circle" src="{{asset('/')}}assets/images/avatar/12.jpg"
+                                <img class="avatar-img rounded-circle" src="{{asset('/')}}{{$personelSettings['profile_image'] ?? 'assets/images/avatar/12.jpg'}} "
                                      alt="avatar">
                             </div>
                         </a>
@@ -86,24 +88,22 @@ Inner intro START -->
                             <div class="d-sm-flex align-items-center justify-content-between">
                                 <div>
                                     <h4 class="m-0"><a href="#">{{1}}</a></h4>
-                                    <small>An editor at Blogzine</small>
+                                    <small>{{$personelSettings['profile_title'] ?? ""}}</small>
                                 </div>
-                                <a href="#" class="btn btn-xs btn-primary-soft">View Articles</a>
+                                <a href="#" class="btn btn-xs btn-primary-soft">Yazar'ı Görüntüle</a>
                             </div>
-                            <p class="my-2">Louis Ferguson is a senior editor for the blogzine and also reports on
-                                breaking news based in London. He has written about government, criminal justice, and
-                                the role of money in politics since 2015.</p>
+                            <p class="my-2">{{$personelSettings['bio'] ?? ""}}</p>
                             <!-- Social icons -->
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link ps-0 pe-2 fs-5" href="#"><i
-                                            class="fab fa-facebook-square"></i></a>
+                                    <a class="nav-link ps-0 pe-2 fs-5" href="{{$social['instagram']}}"><i
+                                            class="fab fa-instagram-square"></i></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-twitter-square"></i></a>
+                                    <a class="nav-link px-2 fs-5" href="{{$social['twitter']}}"><i class="fab fa-twitter-square"></i></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-linkedin"></i></a>
+                                    <a class="nav-link px-2 fs-5" href="{{$social['linkedin']}}"><i class="fab fa-linkedin"></i></a>
                                 </li>
                             </ul>
                         </div>
@@ -155,7 +155,7 @@ Inner intro START -->
                             <!-- Comment level 1-->
                             <div class="my-4 d-flex">
                                 <img class="avatar avatar-md rounded-circle float-start me-3"
-                                     src="{{asset('/')}}assets/images/avatar/01.jpg" alt="avatar">
+                                     src="{{asset('/').$value['profile_image']}}" alt="avatar">
                                 <div>
                                     <div class="mb-2">
                                         <h5 class="m-0">{{$value['name']}}</h5>

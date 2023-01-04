@@ -104,6 +104,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         Route::get('/edit_profile', [Admin::class, 'GetProfile'])->name('admin.profile.controller');
         Route::post('/save_profile_changes', [Admin::class, 'SaveProfileChanges'])->name('ajax.profile');
+        Route::post('/save_social_media_changes', [Admin::class, 'SaveOrUpdateSocialMedia'])->name('ajax.save_social_media_changes');
         Route::post('/save_profile_info/{user_id}',[Admin::class,'setProfileInfo'])->middleware(ProfileUpdateDataValidation::class)->name('save.profile.info');
 
         Route::get('/post_list', [Post::class, 'GetPostList'])->name('admin.post.list');

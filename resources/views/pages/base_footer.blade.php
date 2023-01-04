@@ -16,21 +16,13 @@ Footer START -->
             <!-- Social links -->
             <div class="col-md-4">
                 <ul class="nav text-primary-hover justify-content-center justify-content-md-end">
-                    <li class="nav-item">
-                        <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-facebook-square"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-twitter-square"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-linkedin"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-youtube-square"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link ps-2 pe-0 fs-5" href="#"><i class="fab fa-vimeo"></i></a>
-                    </li>
+{{--                    <li class="nav-item">--}}
+{{--                        <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-instagram-square"></i></a>--}}
+{{--                    </li>--}}
+
+{{--                    <li class="nav-item">--}}
+{{--                        <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-linkedin"></i></a>--}}
+{{--                    </li>--}}
                 </ul>
             </div>
         </div>

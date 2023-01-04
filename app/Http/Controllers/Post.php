@@ -3,13 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Tools\FileTools;
-use App\Models\CommentsModel;
-use App\Models\PostFileModel;
+use App\Models\{CommentsModel, PostFileModel, PostModel as PostModel, ProfileSetting, UserPersonalInfo};
 use Illuminate\Http\Request;
-use App\Models\PostModel as PostModel;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\{Auth, Crypt, Validator};
 
 
 class Post extends Controller
@@ -46,19 +42,24 @@ class Post extends Controller
 
 
     public function showPost(Request $request,$post_name,$post_id){
-//        dump($request);
-//        dump($post_name);
-//        dump($post_id);
+
 
         $post_id = Crypt::decrypt($post_id);
         $post = $this->postModel->getPostFromID($post_id);
         $commentsModel = new CommentsModel();
-        $comments = $commentsModel->select('comments.*','u.name')
+        $comments = $commentsModel->select('comments.*','u.name','ps.profile_image')
             ->leftJoin('users as u', 'u.id', '=', 'comments.user_id')
+            ->leftJoin('profile_setting as ps', 'ps.user_id', '=', 'comments.user_id')
             ->where('post_id','=',$post_id)
             ->whereNull('parent_comment_id')
                 ->get()->toArray();
-        return view('post_viewer',['post'=>$post,'comments'=>$comments]);
+
+        dump($post['user_id']);
+        $personelSettings = (new ProfileSetting)->GetPersonalSetting($post['user_id']);
+        $UserSocialMedia= (new UserPersonalInfo())->GetUserPersonalInfo($post['user_id']);
+
+        dump($personelSettings);
+        return view('post_viewer',['post'=>$post,'comments'=>$comments,'personelSettings'=>$personelSettings,'social'=>$UserSocialMedia]);
 
     }
 

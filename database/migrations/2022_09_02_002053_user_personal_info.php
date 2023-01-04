@@ -21,10 +21,11 @@ return new class extends Migration
             $table->string('first_name',255)->nullable();
             $table->string('last_name',255)->nullable();
             $table->date('birthday')->nullable();
-            $table->tinyText('adress')->nullable();
+//            $table->tinyText('adress')->nullable();
             $table->string('facebook',255)->nullable();
             $table->string('linkedin',255)->nullable();
             $table->string('twitter',255)->nullable();
+            $table->string('instagram',255)->nullable();
             $table->timestamp('date')->useCurrent();
             $table->tinyInteger('status')->default(1);
         });

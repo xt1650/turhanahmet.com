@@ -6,8 +6,8 @@ Header START -->
         <div class="container">
             <!-- Logo START -->
             <a class="navbar-brand" href="{{asset('/')}}">
-                <img class="navbar-brand-item light-mode-item" src="{{asset('/')}}assets/images/logo.svg" alt="logo">
-                <img class="navbar-brand-item dark-mode-item" src="{{asset('/')}}assets/images/logo-light.svg" alt="logo">
+                <img class="navbar-brand-item light-mode-item" src="{{asset('/')}}assets/images/turhanahmet/Turhan Ahmet-logos_ex.svg"  alt="logo">
+                <img class="navbar-brand-item dark-mode-item" src="{{asset('/')}}assets/images/turhanahmet/TurhanAhmet-logos_white.png" alt="logo">
             </a>
             <!-- Logo END -->
 

@@ -4,14 +4,32 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class ProfileSetting extends Model
 {
     use HasFactory;
+    use LogsActivity;
     protected $table='profile_setting';
 
     public $timestamps = false;
     protected $created_at,$updated_at = false;
+
+    //protected $fillable = ['name', 'text'];
+//    public function getActivitylogOptions(): LogOptions
+//    {
+//        return LogOptions::defaults();
+//    }
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+             ->useLogName('ProfileSettings')
+//             ->
+//            ->logOnly(['name', 'text']);
+            ->logAll();
+        // Chain fluent methods for configuration options
+    }
 
     public function GetPersonalSetting($user_id)
     {
@@ -62,5 +80,4 @@ class ProfileSetting extends Model
 
 
     }
-
 }

@@ -45,7 +45,7 @@
                                                     <div class="nav-link">
                                                         <div class="d-flex align-items-center text-white position-relative">
                                                             <div class="avatar avatar-sm">
-                                                                <img class="avatar-img rounded-circle" src="{{asset('/')}}assets/images/avatar/01.jpg" alt="avatar">
+                                                                <img class="avatar-img rounded-circle" src="{{asset('/').$value['profile_image']}}" alt="avatar">
                                                             </div>
                                                             <span class="ms-3"> <a href="#" class="stretched-link text-reset btn-link">{{$value['username']}}</a></span>
                                                         </div>
@@ -89,7 +89,7 @@
                                 <!-- Author info -->
                                 <div class="d-flex align-items-center position-relative mt-3">
                                     <div class="avatar me-2">
-                                        <img class="avatar-img rounded-circle" src="{{asset('/')}}images/1661711473_75.jpg" alt="avatar">
+                                        <img class="avatar-img rounded-circle" src="{{asset('/').$value['profile_image']}}" alt="avatar">
                                     </div>
                                     <div>
                                         <h5 class="mb-1"><a href="#" class="stretched-link text-reset btn-link">{{$value['username']}}</a></h5>

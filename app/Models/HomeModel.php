@@ -18,9 +18,10 @@ class HomeModel extends Model
      */
     public function SliderPost()
     {
-        return $this->select('post.*','u.name as username','pf.file_info')
+        return $this->select('post.*','u.name as username','pf.file_info','ps.profile_image')
             ->leftJoin('users as u', 'u.id','=','post.user_id')
             ->leftJoin('post_file as pf', 'pf.post_id','=','post.id')
+            ->leftJoin('profile_setting as ps', 'ps.user_id','=','post.user_id')
             ->orderBy('date', 'desc')
             ->take(2)
             ->get()
@@ -34,9 +35,10 @@ class HomeModel extends Model
     public function HighlightsPost(){
         //Geçici seçim
         //Daha sonrasında admin panelinden seçilmelidir
-        return $this->select('post.*','u.name as username','pf.file_info')
+        return $this->select('post.*','u.name as username','pf.file_info','ps.profile_image')
             ->leftJoin('users as u', 'u.id','=','post.user_id')
             ->leftJoin('post_file as pf', 'pf.post_id','=','post.id')
+            ->leftJoin('profile_setting as ps', 'ps.user_id','=','post.user_id')
             ->orderBy('date', 'desc')
             ->offset(2)
             ->limit(5)

@@ -2,6 +2,11 @@
 //    dump($user_info,$settings,$personal_info);
 //    dump($user_info['id']);
 //    $settings = null;
+
+//
+//$users;
+//$settings;
+dump($personal_info);
 @endphp
 @extends('admin.master')
 @section('main')
@@ -27,11 +32,11 @@
                                 <!-- Profile info -->
                                 <div class="col-sm-12 col-md text-center text-md-start d-md-flex justify-content-between align-items-center">
                                     <div>
-                                        <h4 class="my-1">Louis Ferguson <i class="bi bi-patch-check-fill text-info small"></i></h4>
+                                        <h4 class="my-1">Ahmet Turhan <i class="bi bi-patch-check-fill text-info small"></i></h4>
                                         <ul class="list-inline">
-                                            <li class="list-inline-item"><i class="bi bi-person-fill me-1"></i> An editor at Blogzine</li>
-                                            <li class="list-inline-item"><i class="bi bi-geo-alt me-1"></i> New York</li>
-                                            <li class="list-inline-item"><i class="bi bi-calendar2-plus me-1"></i> Joined on Jan 15, 2018</li>
+                                            <li class="list-inline-item"><i class="bi bi-person-fill me-1"></i> turhanahmet.com Kurucusu</li>
+                                            <li class="list-inline-item"><i class="bi bi-geo-alt me-1"></i>{{$settings['location'] ?? ""}}</li>
+{{--                                            <li class="list-inline-item"><i class="bi bi-calendar2-plus me-1"></i> Joined on Jan 15, 2018</li>--}}
                                         </ul>
                                         <p class="m-0"></p>
                                     </div>
@@ -110,7 +115,7 @@
                                 <!-- Cover image -->
                                 <!-- Profile title -->
                                 <div class="mb-3">
-                                    <label class="form-label">Profil ArkaPlan Resmi</label>
+                                    <label class="form-label">Profil ArkaPlan Resmi(İdeal Resim Boyutu: 1920*600 boyutlarında olmalıdır. )</label>
                                     <div class="d-flex align-items-center">
                                         <div class="position-relative me-3">
                                             <!-- Avatar edit -->
@@ -168,14 +173,14 @@
                             <h5 class="card-header-title mb-0">Profil</h5>
                         </div>
                         <div class="card-body">
-                            <form id="saveChangesProfileFirst" method="post" enctype="multipart/form-data" >
+                            <form id="saveChangesUserPersonelInfo" method="post" >
                                 <input hidden value="{{csrf_token()}}">
                             <!-- Full name -->
                             <div class="mb-3">
                                 <label class="form-label">Ad-Soyad</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="ad" value="{{--$user_info['ad']--}}" placeholder="Ad">
-                                    <input type="text" class="form-control" name="soyad" value="{{--$user_info['soyad']--}}" placeholder="Soyad">
+                                    <input type="text" class="form-control" name="ad" value="{{$user_info['ad'] ?? ""}}" placeholder="Ad">
+                                    <input type="text" class="form-control" name="soyad" value="{{$user_info['soyad'] ?? ""}}" placeholder="Soyad">
                                 </div>
                             </div>
                             <!-- Username -->
@@ -183,69 +188,57 @@
                                 <label class="form-label">Kullanıcı Adı</label>
                                 <div class="input-group">
                                     <span class="input-group-text">turhanahmet.com</span>
-                                    <input type="text" class="form-control" name="user_name" value="{{$user_info['name']}}">
+                                    <input type="text" class="form-control" name="user_name" value="{{$user_info['name'] ?? ""}}">
                                 </div>
                             </div>
 
                             <!-- Job title -->
                             <div class="mb-3">
-                                <label class="form-label">Meslek Adı</label>
-                                <input class="form-control" type="text" name="job" value="An editor at Blogzine">
+                                <label class="form-label">Meslek</label>
+                                <input class="form-control" type="text" name="job" value="">
                             </div>
-                            <!-- Location -->
-                            <div class="mb-3">
-                                <label class="form-label">Konum</label>
-                                <input class="form-control" type="text" name="adress" value="New Hampshire">
-                            </div>
-                            <!-- Bio -->
-                            <div class="mb-3">
-                                <label class="form-label">Bio</label>
-                                <textarea class="form-control" name="bio_info" rows="3">I’ve found a way to get paid for my favorite hobby, and do so while following my dream of traveling the world.</textarea>
-                                <div class="form-text">Brief description for your profile.</div>
-                            </div>
-                            <!-- Birthday -->
                             <div>
-                                <label class="form-label">Birthday</label>
-                                <input type="text" name="dogum_tarih" class="form-control flatpickr-input" placeholder="DD/MM/YYYY" value="12/10/1990">
+                                <label class="form-label">Doğum Tarihi</label>
+                                <input type="text" name="dogum_tarih" class="form-control flatpickr-input" placeholder="DD/MM/YYYY" value="">
                             </div>
                             <!-- Save button -->
                             <div class="d-flex justify-content-end mt-4">
                                 <a href="#" class="btn text-secondary border-0 me-2">İptal</a>
-                                <button type="submit" id="base_profile" value="1" class="btn btn-primary">Değişiklikleri Kaydet</button>
+                                <button type="submit" id="userPersonelInfoBtn" value="1" class="btn btn-primary">Değişiklikleri Kaydet</button>
                             </div>
                             </form>
                         </div>
                     </div>
                     <!-- Profile END -->
 
-                    <!-- Personal information START -->
-                    <div class="card border mb-4">
-                        <div class="card-header border-bottom p-3">
-                            <h5 class="card-header-title mb-0">Kişisel Bilgiler</h5>
-                        </div>
-                        <div class="card-body">
-                            <!-- Skype -->
-                            <div class="mb-3">
-                                <label class="form-label">Skype|AnyDesk|Discord</label>
-                                <input class="form-control" type="text" value="iamlouisferguson">
-                            </div>
-                            <!-- Email -->
-                            <div class="mb-3">
-                                <label class="form-label">Email</label>
-                                <input class="form-control" type="email" value="{{$user_info['email']}}" readonly>
-                            </div>
-                            <!-- Address -->
-                            <div class="mb-3">
-                                <label class="form-label">Adres</label>
-                                <input class="form-control" type="text" value="750 Sing Sing Rd, Horseheads, NY, 14845 ">
-                            </div>
-                            <!-- Save button -->
-                            <div class="d-flex justify-content-end mt-4">
-                                <a href="#" class="btn btn-primary">Değişiklikleri Kaydet</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Personal information END -->
+{{--                    <!-- Personal information START -->--}}
+{{--                    <div class="card border mb-4">--}}
+{{--                        <div class="card-header border-bottom p-3">--}}
+{{--                            <h5 class="card-header-title mb-0">Kişisel Bilgiler</h5>--}}
+{{--                        </div>--}}
+{{--                        <div class="card-body">--}}
+{{--                            <!-- Skype -->--}}
+{{--                            <div class="mb-3">--}}
+{{--                                <label class="form-label">Skype|AnyDesk|Discord</label>--}}
+{{--                                <input class="form-control" type="text" value="iamlouisferguson">--}}
+{{--                            </div>--}}
+{{--                            <!-- Email -->--}}
+{{--                            <div class="mb-3">--}}
+{{--                                <label class="form-label">Email</label>--}}
+{{--                                <input class="form-control" type="email" value="{{$user_info['email']}}" readonly>--}}
+{{--                            </div>--}}
+{{--                            <!-- Address -->--}}
+{{--                            <div class="mb-3">--}}
+{{--                                <label class="form-label">Adres</label>--}}
+{{--                                <input class="form-control" type="text" value="750 Sing Sing Rd, Horseheads, NY, 14845 ">--}}
+{{--                            </div>--}}
+{{--                            <!-- Save button -->--}}
+{{--                            <div class="d-flex justify-content-end mt-4">--}}
+{{--                                <a href="#" class="btn btn-primary">Değişiklikleri Kaydet</a>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <!-- Personal information END -->--}}
 
                     <!-- Social links START -->
                     <div class="card border mb-4">
@@ -253,25 +246,31 @@
                             <h5 class="card-header-title mb-0"> Sosyal Medya</h5>
                         </div>
                         <div class="card-body">
+                            <form id="saveChangesSocialMediaForm" method="post" >
                             <!-- Skype -->
                             <div class="mb-3">
                                 <label class="form-label">Facebook</label>
-                                <input class="form-control" type="text" value="https://facebook.com/">
+                                <input class="form-control" type="text" name="facebook" value="https://facebook.com/">
                             </div>
                             <!-- Email -->
                             <div class="mb-3">
                                 <label class="form-label">linkedin</label>
-                                <input class="form-control" type="email" value="https://www.linkedin.com/">
+                                <input class="form-control" type="text" name="linkedin" value="https://www.linkedin.com/">
                             </div>
                             <!-- Address -->
                             <div class="mb-3">
                                 <label class="form-label">Twitter</label>
-                                <input class="form-control" type="text" value="https://twitter.com/ ">
+                                <input class="form-control" type="text" name="twitter" value="https://twitter.com/">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Twitter</label>
+                                <input class="form-control" type="text" name="instagram" value="https://instagram.com/">
                             </div>
                             <!-- Save button -->
                             <div class="d-flex justify-content-end mt-4">
-                                <a href="#" class="btn btn-primary">Değişiklikleri Kaydet</a>
+                                <button type="submit" id="socialMediaSubmitBtn" class="btn btn-primary">Değişiklikleri Kaydet</button>
                             </div>
+                            </form>
                         </div>
                     </div>
                     <!-- Social links END -->
@@ -454,6 +453,7 @@
         let circle = document.getElementById('bordered_profile');
         let circleBackground = document.getElementById('profile_background_img');
         let changeSaveButtonFirst = document.getElementById('base_profile');
+        let userPersonelInfoBtn = document.getElementById('userPersonelInfoBtn');
 
 
 
@@ -493,7 +493,46 @@
         //     //     console.log(response)
         //     // })
         // })
+        let socialMediaForms = $('#saveChangesSocialMediaForm');
+        socialMediaForms.on('submit',function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log($(this).serialize())
+            console.log($(this).serializeArray())
+
+
+            let formData = new FormData(socialMediaForms[0]);
+            console.log(formData)
+            // formData.append("file", profile_file_input.files[0]);
+            //
+            BasicProfile('{{route('ajax.save_social_media_changes')}}',formData,false).then(function (response) {
+                console.log(response)
+            })
+        });
+
+
+
         let forms = $('#saveChangesProfileFirst');
+        let userPersonelInfoForm = $('#saveChangesUserPersonelInfo');
+        userPersonelInfoForm.on('submit',function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log($(this).serialize())
+            console.log($(this).serializeArray())
+
+
+            let formData = new FormData(userPersonelInfoForm[0]);
+            console.log(formData)
+            // formData.append("file", profile_file_input.files[0]);
+            //
+            BasicProfile('{{route('ajax.profile')}}',formData,false).then(function (response) {
+                console.log(response)
+            })
+        });
+
+
+
+
         let profileInfoForms = $('#profile_info_form');
         profileInfoForms.on('submit',function (e) {
             e.preventDefault();

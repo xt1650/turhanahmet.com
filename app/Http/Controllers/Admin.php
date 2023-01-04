@@ -26,7 +26,7 @@ class Admin extends Controller
         $users=$user->getUserInfo($user_id);
         $settings=$profileSetting->GetPersonalSetting($user_id);
         $personalInfo=$userPersonalInfo->GetUserPersonalInfo($user_id);
-        dump($users,$settings,$personalInfo);
+
 
         return view('admin.edit.edit_profile',['user_info'=>$users,
             'settings'=>$settings,
@@ -35,12 +35,25 @@ class Admin extends Controller
 
 
     public function SaveProfileChanges(Request $request){
-        dump($request->user_id);
+
+        $user_id = Auth::id();
         dump($request->input());
-        dump($request->file());
-//        $this->toolsImage = new FileTools();
-//        $imageSaveInfo = $this->toolsImage->SavePostFile($request->file('profile_file_input')); // Güncelenen resim ekleniyor
-//        $this->PostFileModel->saveFileInfo($post_id, $rs); // Yeni resim bilgisi veritabanına kaydediliyor
+
+        $userPI=new UserPersonalInfo();
+        $data = $userPI->SaveOrUpdateUserPersonelInfo($request->input(),$user_id);
+
+//        if ($request->ajax()) {
+//            return response()->json(['test'=>$request->input(),'file'=>$rs]);
+//        }
+    }
+    public function SaveOrUpdateSocialMedia(Request $request){
+
+        $user_id = Auth::id();
+        dump($request->input());
+
+        $userPI=new UserPersonalInfo();
+        $data = $userPI->SaveOrUpdateSocialMedia($request->input(),$user_id);
+
 //        if ($request->ajax()) {
 //            return response()->json(['test'=>$request->input(),'file'=>$rs]);
 //        }
